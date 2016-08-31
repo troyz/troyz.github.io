@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ssh,linux," />
 
 
 
@@ -84,19 +84,22 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="背景我的Mac要求既可以提交代码到github，也可以提交代码到oschina，提交的时候都走ssh协议，但是默认情况下只能有一个ssh key(~/ssh)
+同一台电脑关于多个SSH KEY管理
+开源中国SSH Key">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/08/12/hello-world/index.html">
+<meta property="og:title" content="多SSH KEY管理">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/多SSH-KEY管理/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-08-12T09:53:51.000Z">
+<meta property="og:description" content="背景我的Mac要求既可以提交代码到github，也可以提交代码到oschina，提交的时候都走ssh协议，但是默认情况下只能有一个ssh key(~/ssh)
+同一台电脑关于多个SSH KEY管理
+开源中国SSH Key">
+<meta property="og:updated_time" content="2016-08-31T09:56:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="多SSH KEY管理">
+<meta name="twitter:description" content="背景我的Mac要求既可以提交代码到github，也可以提交代码到oschina，提交的时候都走ssh协议，但是默认情况下只能有一个ssh key(~/ssh)
+同一台电脑关于多个SSH KEY管理
+开源中国SSH Key">
 
 
 
@@ -117,9 +120,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/12/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/31/多SSH-KEY管理/"/>
 
-  <title> Hello World | Troy的小站 </title>
+  <title> 多SSH KEY管理 | Troy的小站 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh">
@@ -239,7 +242,7 @@ Quick">
             
             
               
-                Hello World
+                多SSH KEY管理
               
             
           </h1>
@@ -251,8 +254,8 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T17:53:51+08:00" content="2016-08-12">
-              2016-08-12
+            <time itemprop="dateCreated" datetime="2016-08-31T17:55:51+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -279,15 +282,9 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>我的<code>Mac</code>要求既可以提交代码到<code>github</code>，也可以提交代码到<code>oschina</code>，提交的时候都走<code>ssh</code>协议，但是默认情况下只能有一个<code>ssh key</code>(~/ssh)</p>
+<p><a href="http://yijiebuyi.com/blog/f18d38eb7cfee860c117d629fdb16faf.html" target="_blank" rel="external">同一台电脑关于多个SSH KEY管理</a></p>
+<p><a href="https://git.oschina.net/oschina/git-osc/wikis/%E5%B8%AE%E5%8A%A9#ssh-keys" target="_blank" rel="external">开源中国SSH Key</a></p>
 
       
     </div>
@@ -308,17 +305,29 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ssh/" rel="tag">#ssh</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/31/Http抓包/" rel="next" title="Http抓包">
+                <i class="fa fa-chevron-left"></i> Http抓包
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/31/Http抓包/" rel="prev" title="Http抓包">
-                Http抓包 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/31/Charles中文乱码/" rel="prev" title="Charles中文乱码">
+                Charles中文乱码 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -426,7 +435,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li></ol></div>
             
           </div>
         </section>

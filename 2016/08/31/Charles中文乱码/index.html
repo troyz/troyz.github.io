@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="http," />
 
 
 
@@ -84,19 +84,28 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
+如果没有，可能造成某些平台的Client中文解析乱码。
+很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
+以下为解决Charles中文乱">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/08/12/hello-world/index.html">
+<meta property="og:title" content="Charles中文乱码">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/Charles中文乱码/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-08-12T09:53:51.000Z">
+<meta property="og:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
+如果没有，可能造成某些平台的Client中文解析乱码。
+很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
+以下为解决Charles中文乱">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-6f7d52c438b67551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-08-31T09:57:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Charles中文乱码">
+<meta name="twitter:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
+如果没有，可能造成某些平台的Client中文解析乱码。
+很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
+以下为解决Charles中文乱">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -117,9 +126,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/12/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/31/Charles中文乱码/"/>
 
-  <title> Hello World | Troy的小站 </title>
+  <title> Charles中文乱码 | Troy的小站 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh">
@@ -239,7 +248,7 @@ Quick">
             
             
               
-                Hello World
+                Charles中文乱码
               
             
           </h1>
@@ -251,8 +260,8 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T17:53:51+08:00" content="2016-08-12">
-              2016-08-12
+            <time itemprop="dateCreated" datetime="2016-08-31T17:57:10+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -279,15 +288,16 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>正常情况下，<code>Server</code>端提供给<code>Client</code>端的所有接口的<code>Response</code>中应该有字符集的<code>Header</code>设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Content-Type: application/json;charset=UTF-8</div></pre></td></tr></table></figure></p>
+<p>如果没有，可能造成某些平台的<code>Client</code>中文解析乱码。</p>
+<p>很不幸，我们团队的<code>Server</code>端开发人员的意识不够，很多<code>JSON</code>接口都不规范，用<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>抓包中文乱码。</p>
+<p>以下为解决<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>中文乱码的方案：</p>
+<h3 id="方案1：修改Charles的配置文件Info-plist"><a href="#方案1：修改Charles的配置文件Info-plist" class="headerlink" title="方案1：修改Charles的配置文件Info.plist"></a>方案1：修改<code>Charles</code>的配置文件<code>Info.plist</code></h3><p>右键Charles-&gt;在Finder中显示-&gt;右键<code>Charles.app</code>-&gt;显示包内容-&gt;Contents-&gt;双击打开Info.plist</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改JVMOptions: -Dfile.encoding=UTF-8"></p>
+<p>网上很多人都是用这种方式，但是我试了下，没有成功，我的<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>版本是<code>v3.11.1</code></p>
+<h3 id="方案2：在Charles中Rewrite-Header"><a href="#方案2：在Charles中Rewrite-Header" class="headerlink" title="方案2：在Charles中Rewrite Header"></a>方案2：在<code>Charles</code>中<code>Rewrite</code> <code>Header</code></h3><p>打开<code>Charles</code>-&gt;Tool-&gt;Rewrite-&gt;勾选<code>Enable Rewrite</code>-&gt;点击<code>Sets</code>面板<code>Add</code>按钮-&gt;右侧<code>Locations</code>面板点击<code>Add</code>按钮输入url匹配规则(你server端的url规则)-&gt;右侧<code>Rules</code>面板点击<code>Add</code>按钮输入，详情如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/267318-6f7d52c438b67551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Charles Rewrite规则配置"></p>
+<p><strong>注意</strong>：这里需要根据你<code>Server</code>端返回数据的具体情况来，因为我的<code>Server</code>端并没有返回<code>Content-Type</code>这个Header，并且所有接口都返回了<code>Server: Apache-Coyote/1.1</code>这个Header，所以我这个<code>Rewrite</code>规则实际上是修改<code>Server: Apache-Coyote/1.1</code>为<code>Content-Type: application/json;charset=UTF-8</code></p>
 
       
     </div>
@@ -308,17 +318,27 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/http/" rel="tag">#http</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/31/多SSH-KEY管理/" rel="next" title="多SSH KEY管理">
+                <i class="fa fa-chevron-left"></i> 多SSH KEY管理
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/31/Http抓包/" rel="prev" title="Http抓包">
-                Http抓包 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/31/Mac与iPhone-iPad设备数据同步（基于USB）/" rel="prev" title="Mac与iPhone/iPad设备数据同步（基于USB）">
+                Mac与iPhone/iPad设备数据同步（基于USB） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -426,7 +446,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案1：修改Charles的配置文件Info-plist"><span class="nav-number">2.</span> <span class="nav-text">方案1：修改Charles的配置文件Info.plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案2：在Charles中Rewrite-Header"><span class="nav-number">3.</span> <span class="nav-text">方案2：在Charles中Rewrite Header</span></a></li></ol></div>
             
           </div>
         </section>
