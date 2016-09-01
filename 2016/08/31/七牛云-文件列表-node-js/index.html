@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="Troy的小站">
 <meta property="og:description" content="如题，在七牛上放了一些文件，有的时候想查看文件列表1$ npm install qiniu
 1234567891011121314151617$ vim file_list.jsvar qiniu = require(&quot;qiniu&quot;);qiniu.conf.ACCESS_KEY = &apos;************&apos;;qiniu.conf.SECRET_KEY = &apos;************&apos;;var">
-<meta property="og:updated_time" content="2016-08-31T10:00:18.000Z">
+<meta property="og:updated_time" content="2016-09-01T03:23:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七牛云-文件列表-node.js">
 <meta name="twitter:description" content="如题，在七牛上放了一些文件，有的时候想查看文件列表1$ npm install qiniu
@@ -309,9 +309,9 @@
       
 
       
-        <p>如题，在七牛上放了一些文件，有的时候想查看文件列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install qiniu</div></pre></td></tr></table></figure></p>
+        <p>如题，在七牛上放了一些文件，有的时候想查看文件列表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install qiniu</div></pre></td></tr></table></figure></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$ vim file_list.js</div><div class="line"><span class="keyword">var</span> qiniu = <span class="built_in">require</span>(<span class="string">"qiniu"</span>);</div><div class="line"></div><div class="line">qiniu.conf.ACCESS_KEY = <span class="string">'************'</span>;</div><div class="line">qiniu.conf.SECRET_KEY = <span class="string">'************'</span>;</div><div class="line"><span class="keyword">var</span> bucket = <span class="string">'YOUR_BUCKET'</span>;</div><div class="line">qiniu.rsf.listPrefix(bucket, <span class="string">''</span>, <span class="string">''</span>, <span class="number">1000</span>, <span class="string">''</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, ret</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(err)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">console</span>.log(err);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">console</span>.log(ret);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ node file_list.js</div></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ node file_list.js</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>// 输出结果：<br>{<br>  “marker”: “xxx”,<br>  “items”: [<br>    {<br>      “key”: “baicaopanjinqu/万年泉.jpg”,<br>      “hash”: “Fhyfof9FBr4P-BAnY-Y4W7FBSto5”,<br>      “fsize”: 432375,<br>      “mimeType”: “image/jpeg”,<br>      “putTime”: 14695198342091094<br>    },<br>    {<br>      “key”: “baicaopanjinqu/冰川杜鹃.jpg”,<br>      “hash”: “FqKT3TzLthFhMOVNUdy2JZV5ewI3”,<br>      “fsize”: 567102,<br>      “mimeType”: “image/jpeg”,<br>      “putTime”: 14695198328191896<br>    }<br>  ]<br>}</p>
 </blockquote>
