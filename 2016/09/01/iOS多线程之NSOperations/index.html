@@ -1,0 +1,890 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,thread," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
+NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
+
+采用面向对象的方式
+任务、队列可以被cancel/suspend
+NSOperation(任务)之间可以添加依赖(dependency)
+
+NSOperationQueue（队列）
+
+
+Api
+备注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS多线程之NSOperations">
+<meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS多线程之NSOperations/index.html">
+<meta property="og:site_name" content="Troy的小站">
+<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
+NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
+
+采用面向对象的方式
+任务、队列可以被cancel/suspend
+NSOperation(任务)之间可以添加依赖(dependency)
+
+NSOperationQueue（队列）
+
+
+Api
+备注">
+<meta property="og:updated_time" content="2016-09-01T08:06:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS多线程之NSOperations">
+<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
+NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
+
+采用面向对象的方式
+任务、队列可以被cancel/suspend
+NSOperation(任务)之间可以添加依赖(dependency)
+
+NSOperationQueue（队列）
+
+
+Api
+备注">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://troyz.github.io/2016/09/01/iOS多线程之NSOperations/"/>
+
+  <title> iOS多线程之NSOperations | Troy的小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Troy的小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS多线程之NSOperations
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T16:05:13+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/iOS多线程之NSOperations/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/iOS多线程之NSOperations/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="external">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/7269be164cf0" target="_blank" rel="external">iOS多线程之GCD</a></p>
+<p><code>NSOperation</code>(任务)与<code>NSOperationQueue</code>(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：</p>
+<ul>
+<li>采用面向对象的方式</li>
+<li>任务、队列可以被cancel/suspend</li>
+<li><code>NSOperation</code>(任务)之间可以添加依赖(dependency)</li>
+</ul>
+<h3 id="NSOperationQueue（队列）"><a href="#NSOperationQueue（队列）" class="headerlink" title="NSOperationQueue（队列）"></a>NSOperationQueue（队列）</h3><table>
+<thead>
+<tr>
+<th>Api</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>- (void)<code>addOperation</code>:(NSOperation *)op;<br>- (void)<code>addOperationWithBlock</code>:(void (^)(void))block;</td>
+<td>添加任务到queue</td>
+</tr>
+<tr>
+<td>@property NSInteger <code>maxConcurrentOperationCount</code>;</td>
+<td>设置queue的并发数，如果为1则相当于是<code>串行队列</code></td>
+</tr>
+<tr>
+<td>@property (getter=isSuspended) BOOL <code>suspended</code></td>
+<td>挂起或者取消挂起</td>
+</tr>
+<tr>
+<td>@property (nullable, copy) NSString *name</td>
+<td>设置队列的名称</td>
+</tr>
+<tr>
+<td>- (void)<code>cancelAllOperations</code></td>
+<td>取消所有任务，<br><strong>注意</strong>：这个方法只会将队列中所有任务(<code>NSOperation</code>)的状态属性字段<code>cancelled</code>设置为YES，并不会真正的kill掉这个任务的线程，通常需要在自定义的<code>NSOperation</code>内部重写<code>main</code>方法（任务代码），并在<code>main</code>方法中时不时的判断任务是否<code>isCancelled</code>，如果是则主动中止任务并返回</td>
+</tr>
+<tr>
+<td><code>+</code> (nullable NSOperationQueue *)<code>currentQueue</code></td>
+<td>获取当前队列，注意是类方法</td>
+</tr>
+<tr>
+<td><code>+</code> (NSOperationQueue *)<code>mainQueue</code></td>
+<td>获取main队列</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NSOperation-（任务）"><a href="#NSOperation-（任务）" class="headerlink" title="NSOperation （任务）"></a>NSOperation （任务）</h3><table>
+<thead>
+<tr>
+<th>Api</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>- (void)<code>start</code>; <br>- (void)<code>main</code>;</td>
+<td>一般我们不需要重载<code>start</code>方法。<br>1）当我们将任务添加到队列的时候，会自动调用这个任务的<code>start</code>方法 进行一些准备工作，之后执行<code>main</code>方法(核心任务代码)，</td>
+</tr>
+<tr>
+<td>@property (readonly, getter=<code>isCancelled</code>) BOOL <code>cancelled</code>; <br>- (void)<code>cancel</code>;</td>
+<td>设置任务状态为取消、判断任务是否被取消，<br><strong>注意：</strong><code>cancel</code>并不会主动取消任务，需要在<code>main</code>中根据<code>isCancelled</code>获取状态并进行相应的处理。</td>
+</tr>
+<tr>
+<td>@property (readonly, getter=isExecuting) BOOL <code>executing</code></td>
+<td>任务是否正在执行</td>
+</tr>
+<tr>
+<td>@property (readonly, getter=isFinished) BOOL <code>finished</code></td>
+<td>以下情况时为<code>YES</code>:<br>1）任务完成<br>2）任务被取消<br>3）任务被暂停</td>
+</tr>
+<tr>
+<td>- (void)<code>addDependency</code>:(NSOperation *)op;</td>
+<td>添加任务依赖，当前任务依赖于任务op，只有任务op执行完成后当前任务才会开始执行</td>
+</tr>
+<tr>
+<td>- (void)<code>removeDependency</code>:(NSOperation *)op;</td>
+<td>删除任务依赖</td>
+</tr>
+<tr>
+<td>@property NSOperationQueuePriority <code>queuePriority</code>;</td>
+<td>任务优先级</td>
+</tr>
+<tr>
+<td>@property (nullable, copy) void (^completionBlock)(void);</td>
+<td>设置任务完成后执行block</td>
+</tr>
+<tr>
+<td>@property (nullable, copy) NSString *<code>name</code></td>
+<td>任务名称</td>
+</tr>
+</tbody>
+</table>
+<h5 id="NSOperation的2个子类"><a href="#NSOperation的2个子类" class="headerlink" title="NSOperation的2个子类"></a>NSOperation的2个子类</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSBlockOperation</span>` : <span class="title">NSOperation</span> </span></div><div class="line"><span class="comment">// 根据block返回NSBlockOperation实例</span></div><div class="line">+ (<span class="keyword">instancetype</span>)blockOperationWithBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line"></div><div class="line"><span class="comment">// 添加新的任务，这些任务会并行执行</span></div><div class="line">- (<span class="keyword">void</span>)addExecutionBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span>&lt;<span class="keyword">void</span> (^)(<span class="keyword">void</span>)&gt; *executionBlocks;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSInvocationOperation</span>` : <span class="title">NSOperation</span> </span></div><div class="line"><span class="comment">// 用selector的方式创建任务</span></div><div class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target selector:(SEL)sel object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>参考：<br><a href="http://www.raywenderlich.com/19788/how-to-use-nsoperations-and-nsoperationqueues" target="_blank" rel="external">How To Use NSOperations and NSOperationQueues</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/thread/" rel="tag">#thread</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/iOS多线程之NSThread/" rel="next" title="iOS多线程之NSThread">
+                <i class="fa fa-chevron-left"></i> iOS多线程之NSThread
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/iOS多线程之GCD/" rel="prev" title="iOS多线程之GCD">
+                iOS多线程之GCD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/01/iOS多线程之NSOperations/"
+     data-title="iOS多线程之NSOperations"
+     data-content=""
+     data-url="https://troyz.github.io/2016/09/01/iOS多线程之NSOperations/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/iOS多线程之NSOperations/"
+           data-title="iOS多线程之NSOperations" data-url="https://troyz.github.io/2016/09/01/iOS多线程之NSOperations/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Troy Zhang" />
+          <p class="site-author-name" itemprop="name">Troy Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSOperationQueue（队列）"><span class="nav-number">1.</span> <span class="nav-text">NSOperationQueue（队列）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSOperation-（任务）"><span class="nav-number">2.</span> <span class="nav-text">NSOperation （任务）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSOperation的2个子类"><span class="nav-number">2.0.1.</span> <span class="nav-text">NSOperation的2个子类</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Troy Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"troyz"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

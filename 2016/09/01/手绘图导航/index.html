@@ -1,0 +1,794 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,map," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介通常在项目中需要用到地图的时候我们会选择百度、高德等地图；但有的时候客户会要求提供基于手绘图的定位、导游导览功能，百度-瓦片图层、高德-图片覆盖物提供了相应的解决方案，我们可以把手绘图作为瓦片、覆盖物放在地图上，但是这种方案有其局限性：必须依托百度、高德地图本身才能查看手绘图。
+接下来我将为大家带来另外一种解决方案，纯手绘图导游导览、定位，先看效果图：
+
+NAMapKitNAMapKit是一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手绘图导航">
+<meta property="og:url" content="https://troyz.github.io/2016/09/01/手绘图导航/index.html">
+<meta property="og:site_name" content="Troy的小站">
+<meta property="og:description" content="简介通常在项目中需要用到地图的时候我们会选择百度、高德等地图；但有的时候客户会要求提供基于手绘图的定位、导游导览功能，百度-瓦片图层、高德-图片覆盖物提供了相应的解决方案，我们可以把手绘图作为瓦片、覆盖物放在地图上，但是这种方案有其局限性：必须依托百度、高德地图本身才能查看手绘图。
+接下来我将为大家带来另外一种解决方案，纯手绘图导游导览、定位，先看效果图：
+
+NAMapKitNAMapKit是一个">
+<meta property="og:image" content="https://github.com/troyz/images/raw/master/store/2016-05-05_21_21_20.gif">
+<meta property="og:image" content="https://github.com/neilang/NAMapKit/raw/master/Demo/Screenshots/namapkit.gif">
+<meta property="og:image" content="https://github.com/troyz/NAMapKit/raw/master/Demo/Screenshots/namapkit2.gif">
+<meta property="og:updated_time" content="2016-09-01T07:22:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手绘图导航">
+<meta name="twitter:description" content="简介通常在项目中需要用到地图的时候我们会选择百度、高德等地图；但有的时候客户会要求提供基于手绘图的定位、导游导览功能，百度-瓦片图层、高德-图片覆盖物提供了相应的解决方案，我们可以把手绘图作为瓦片、覆盖物放在地图上，但是这种方案有其局限性：必须依托百度、高德地图本身才能查看手绘图。
+接下来我将为大家带来另外一种解决方案，纯手绘图导游导览、定位，先看效果图：
+
+NAMapKitNAMapKit是一个">
+<meta name="twitter:image" content="https://github.com/troyz/images/raw/master/store/2016-05-05_21_21_20.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://troyz.github.io/2016/09/01/手绘图导航/"/>
+
+  <title> 手绘图导航 | Troy的小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Troy的小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                手绘图导航
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T15:22:04+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/手绘图导航/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/手绘图导航/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>通常在项目中需要用到地图的时候我们会选择百度、高德等地图；但有的时候客户会要求提供基于手绘图的定位、导游导览功能，<a href="http://lbsyun.baidu.com/index.php?title=iossdk/guide/basicmap#.E7.93.A6.E7.89.87.E5.9B.BE.E5.B1.82" target="_blank" rel="external">百度-瓦片图层</a>、<a href="http://lbs.amap.com/api/ios-sdk/guide/mapkit/" target="_blank" rel="external">高德-图片覆盖物</a>提供了相应的解决方案，我们可以把手绘图作为瓦片、覆盖物放在地图上，但是这种方案有其局限性：必须依托百度、高德地图本身才能查看手绘图。</p>
+<p>接下来我将为大家带来另外一种解决方案，纯手绘图导游导览、定位，先看效果图：</p>
+<p><img src="https://github.com/troyz/images/raw/master/store/2016-05-05_21_21_20.gif" alt="手绘图导游导览"></p>
+<h3 id="NAMapKit"><a href="#NAMapKit" class="headerlink" title="NAMapKit"></a>NAMapKit</h3><p><a href="https://github.com/neilang/NAMapKit" target="_blank" rel="external">NAMapKit</a>是一个开源的手绘图框架，支持缩放、地图标记、高清地图切片浏览、本地手绘图、在线手绘图功能。</p>
+<p><img src="https://github.com/neilang/NAMapKit/raw/master/Demo/Screenshots/namapkit.gif" alt="NAMapKit Demo"></p>
+<h3 id="Popup-Menu"><a href="#Popup-Menu" class="headerlink" title="Popup Menu"></a>Popup Menu</h3><p>默认情况下NAMapKit的标记点弹出框不够nice，所以我在github上fork了<a href="https://github.com/troyz/NAMapKit" target="_blank" rel="external">NAMapKit</a>，并实现了与<a href="https://itunes.apple.com/cn/app/city-guides-by-national-geographic/id592453480?mt=8" target="_blank" rel="external">City Guides by National Geographic</a>这款App中类似的功能：<br><img src="https://github.com/troyz/NAMapKit/raw/master/Demo/Screenshots/namapkit2.gif" alt="Fork NAMapKit on github"></p>
+<p>### 标记点</p>
+<h5 id="普通点标记"><a href="#普通点标记" class="headerlink" title="普通点标记"></a>普通点标记</h5><p>普通点的标记可以直接用尺子在手绘图上量一下，拿到目标点的CGPoint(x,y)，之后把这个point作为<code>NAPinAnnotation</code>添加到地图上，这样就实现了打点的功能。</p>
+<h5 id="当前位置打点"><a href="#当前位置打点" class="headerlink" title="当前位置打点"></a>当前位置打点</h5><p>要实现当前位置打点，就得将经纬度坐标转换成图片的平面坐标，以百度地图来说，它提供了以下转换函数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// BMKGeometry.h</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> *将经纬度坐标转换为投影后的直角地理坐标</div><div class="line"> *@param coordinate 待转换的经纬度坐标</div><div class="line"> *@return 转换后的直角地理坐标</div><div class="line"> */</div><div class="line"><span class="built_in">UIKIT_EXTERN</span> BMKMapPoint BMKMapPointForCoordinate(<span class="built_in">CLLocationCoordinate2D</span> coordinate);</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *将投影后的直角地理坐标转换为经纬度坐标</div><div class="line"> *@param mapPoint 投影后的直角地理坐标</div><div class="line"> *@return 转换后的经纬度坐标</div><div class="line"> */</div><div class="line"><span class="built_in">UIKIT_EXTERN</span> <span class="built_in">CLLocationCoordinate2D</span> BMKCoordinateForMapPoint(BMKMapPoint mapPoint);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里有一个问题：以一个城市为例，在百度地图16、17、18、19等缩放级别下都可以绘制这个城市，但在16、17、18、19级别下画出来的手绘图的尺寸（像素）肯定是不一样的！那么百度地图的直角坐标是以什么为标准呢？</p>
+</blockquote>
+<ul>
+<li>以百度地图18级缩放级别为模板绘出的手绘图，其与百度地图的直角地理坐标是1:1的关系(<strong>zoomRate</strong>)</li>
+<li>你可以在百度地图上找一条直线，看这条直线在16、17、18、19级下长度分别是多少，然后以18级的长度为基准，可以计算出每个缩放等级下的比例值(<strong>zoomRate</strong>)</li>
+</ul>
+<p>所以，如果确定某个经纬度点肯定在当前手绘图中，则可以利用如下公式将<strong>经纬度坐标转换成手绘图的平面坐标</strong>：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 如果手绘图是以百度地图18级为参照画出来的，则zoomRate为1</span></div><div class="line"><span class="meta">#define zoomRate            1</span></div><div class="line"></div><div class="line"><span class="comment">// 手绘图左上角点的经纬度坐标转换成百度地图的直角坐标</span></div><div class="line">BMKMapPoint leftTopCoor = BMKMapPointForCoordinate(<span class="built_in">CLLocationCoordinate2DMake</span>(lat, lng))</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 将经纬度坐标转换成手绘图的平面(像素)坐标</div><div class="line"> */</div><div class="line">- (<span class="built_in">CGPoint</span>)locationCoordToCgPoint:(<span class="built_in">CLLocationCoordinate2D</span>)coor</div><div class="line">&#123;</div><div class="line">    BMKMapPoint point = BMKMapPointForCoordinate(coor);</div><div class="line">    <span class="keyword">return</span> <span class="built_in">CGPointMake</span>((point.x - leftTopCoor.x) * zoomRate, (point.y - leftTopCoor.y) * zoomRate);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 将手绘图的平面(像素)坐标转换成经纬度坐标</div><div class="line"> */</div><div class="line">- (<span class="built_in">CLLocationCoordinate2D</span>)cgPointToLocationCoord:(<span class="built_in">CGPoint</span>)point</div><div class="line">&#123;</div><div class="line">    BMKMapPoint mapPoint;</div><div class="line">    mapPoint.x = point.x / zoomRate + leftTopCoor.x;</div><div class="line">    mapPoint.y = point.y / zoomRate + leftTopCoor.y;</div><div class="line">    <span class="keyword">return</span> BMKCoordinateForMapPoint(mapPoint);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="判断给定经纬度是否在当前手绘图视野范围内"><a href="#判断给定经纬度是否在当前手绘图视野范围内" class="headerlink" title="判断给定经纬度是否在当前手绘图视野范围内"></a>判断给定经纬度是否在当前手绘图视野范围内</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 其中imageWidth、imageHeight为手绘图的像素大小（px单位）</span></div><div class="line">- (<span class="built_in">BOOL</span>)isLocationInImage:(<span class="built_in">CLLocationCoordinate2D</span>)coor</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGPoint</span> point = [<span class="keyword">self</span> locationCoordToCgPoint:coor];</div><div class="line">    <span class="keyword">return</span> !(point.x &lt; <span class="number">0</span> || point.y &lt; <span class="number">0</span> || point.x &gt; imageWidth || point.y &gt; imageHeight);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/map/" rel="tag">#map</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/判断点击、触摸区域是否属于当前UIView/" rel="next" title="判断点击、触摸区域是否属于当前UIView">
+                <i class="fa fa-chevron-left"></i> 判断点击、触摸区域是否属于当前UIView
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/iOS多线程之NSThread/" rel="prev" title="iOS多线程之NSThread">
+                iOS多线程之NSThread <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/01/手绘图导航/"
+     data-title="手绘图导航"
+     data-content=""
+     data-url="https://troyz.github.io/2016/09/01/手绘图导航/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/手绘图导航/"
+           data-title="手绘图导航" data-url="https://troyz.github.io/2016/09/01/手绘图导航/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Troy Zhang" />
+          <p class="site-author-name" itemprop="name">Troy Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAMapKit"><span class="nav-number">2.</span> <span class="nav-text">NAMapKit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Popup-Menu"><span class="nav-number">3.</span> <span class="nav-text">Popup Menu</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#普通点标记"><span class="nav-number">3.0.1.</span> <span class="nav-text">普通点标记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当前位置打点"><span class="nav-number">3.0.2.</span> <span class="nav-text">当前位置打点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判断给定经纬度是否在当前手绘图视野范围内"><span class="nav-number">3.0.3.</span> <span class="nav-text">判断给定经纬度是否在当前手绘图视野范围内</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Troy Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"troyz"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

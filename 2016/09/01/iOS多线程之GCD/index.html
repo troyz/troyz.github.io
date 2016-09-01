@@ -1,0 +1,977 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,thread," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
+队列
+
+
+队列
+Api
+备注
+
+
+
+
+主队列（main queue）
+dispatch_get_main_queue()
+串行队列，可以操纵UI
+
+
+全局调度队列（Global Dispatch Queues）
+dispatch_get_global_queue()
+并行队列，按照执行优先级，分成4种global qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS多线程之GCD">
+<meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS多线程之GCD/index.html">
+<meta property="og:site_name" content="Troy的小站">
+<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
+队列
+
+
+队列
+Api
+备注
+
+
+
+
+主队列（main queue）
+dispatch_get_main_queue()
+串行队列，可以操纵UI
+
+
+全局调度队列（Global Dispatch Queues）
+dispatch_get_global_queue()
+并行队列，按照执行优先级，分成4种global qu">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-a6708bac62b103a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-d299f587c599abc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-d3ead46676ea07c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-09-01T08:08:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS多线程之GCD">
+<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
+队列
+
+
+队列
+Api
+备注
+
+
+
+
+主队列（main queue）
+dispatch_get_main_queue()
+串行队列，可以操纵UI
+
+
+全局调度队列（Global Dispatch Queues）
+dispatch_get_global_queue()
+并行队列，按照执行优先级，分成4种global qu">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-a6708bac62b103a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://troyz.github.io/2016/09/01/iOS多线程之GCD/"/>
+
+  <title> iOS多线程之GCD | Troy的小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Troy的小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS多线程之GCD
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T16:06:19+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/iOS多线程之GCD/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/iOS多线程之GCD/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="external">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/29cffaf280b8" target="_blank" rel="external">iOS多线程之NSOperations</a></p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><table>
+<thead>
+<tr>
+<th>队列</th>
+<th>Api</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主队列（main queue）</td>
+<td><code>dispatch_get_main_queue()</code></td>
+<td>串行队列，可以操纵UI</td>
+</tr>
+<tr>
+<td>全局调度队列（Global Dispatch Queues）</td>
+<td><code>dispatch_get_global_queue()</code></td>
+<td>并行队列，按照执行优先级，分成4种global queue：<br><code>DISPATCH_QUEUE_PRIORITY_HIGH</code>, <code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code>, <code>DISPATCH_QUEUE_PRIORITY_LOW</code>, <code>DISPATCH_QUEUE_PRIORITY_BACKGROUND</code></td>
+</tr>
+<tr>
+<td>自创建队列</td>
+<td><code>dispatch_queue_create()</code></td>
+<td>可以创建：<br>串行（<code>DISPATCH_QUEUE_SERIAL</code>）、<br>并行（<code>DISPATCH_QUEUE_CONCURRENT</code>）队列</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>并行队列</th>
+<th>串行队列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="http://upload-images.jianshu.io/upload_images/267318-a6708bac62b103a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="并行队列"></td>
+<td><img src="http://upload-images.jianshu.io/upload_images/267318-d299f587c599abc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="串行队列"></td>
+</tr>
+</tbody>
+</table>
+<p>队列和线程是两个不同的概念。一个队列可以有多个线程。每个队列中的操作会在所属的线程中运行。举个例子你创建一个并行队列，然后添加三个操作到里面。队列会发起三个单独的线程，然后让所有操作在各自的线程中并发运行。</p>
+<h3 id="提交任务-block-到队列-queue"><a href="#提交任务-block-到队列-queue" class="headerlink" title="提交任务(block)到队列(queue)"></a>提交任务(block)到队列(queue)</h3><table>
+<thead>
+<tr>
+<th>提交方式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dispatch_async</code>(dispatch_queue_t queue, dispatch_block_t block)</td>
+<td>异步提交block到queue</td>
+</tr>
+<tr>
+<td><code>dispatch_sync</code>(dispatch_queue_t queue, dispatch_block_t block)</td>
+<td>同步地提交工作并在返回前<strong>等待</strong>它完成</td>
+</tr>
+<tr>
+<td><code>dispatch_after</code>(dispatch_time_t when, dispatch_queue_t queue, dispatch_block_t block)</td>
+<td>异步提交block到queue，并且延迟执行block，<br><code>dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC))</code>表示3秒后</td>
+</tr>
+<tr>
+<td><code>dispatch_barrier_async</code>(dispatch_queue_t queue, dispatch_block_t block)</td>
+<td>异步提交block，但是该block被执行时，队列中其它block不会被执行，即barrier相当于一个狭窄的通道 <br><strong>场景：</strong>多线程读写竞态资源，多个读线程间可以并行，但读写、写写线程间只能串行，这时可以：<br>1）使用并发队列（为了防止<code>barrier</code>特性影响其它线程，不要使用<code>dispatch_get_global_queue</code>，而是使用<code>dispatch_queue_create</code>来创建新队列）<br>2）使用<code>dispatch_barrier_async</code>添加写block，保证队列中写block执行时不会有其它读写block正在执行</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://upload-images.jianshu.io/upload_images/267318-d3ead46676ea07c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="barrier执行模型"></p>
+<p><strong>注意：</strong><br>如果你调用 dispatch_sync 并放在你已运行着的当前<strong>串行</strong>队列。这会导致死锁，因为调用会一直等待直到 Block 完成，但 Block 不能完成（它甚至不会开始！），直到当前已经存在的任务完成，而当前任务无法完成！举个例子：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController1</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="comment">// dispatch_sync同步提交block到main队列（当前队列）并**等待**block执行完毕，而由于是串行队列，block需要等待当前任务执行完毕，双向等待造成死锁。</span></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"hello world"</span>);</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">// 下面这条NSLog不会被执行，因为线程已经死锁</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController2</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// 创建一个并行队列，，，，（*注意：*如果将*DISPATCH_QUEUE_CONCURRENT*修改成*DISPATCH_QUEUE_SERIAL*，即创建串行队列，就会发生死锁！！！）</span></div><div class="line">    <span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"abc"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"..1"</span>);</div><div class="line">        <span class="comment">// 因为是并行队列，下面的block不需要等待当前block执行完毕，就不会发生死锁。</span></div><div class="line">        <span class="built_in">dispatch_sync</span>(queue, ^&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"..2"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h3 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h3><blockquote>
+<p>dispatch_once() 以线程安全的方式执行且仅执行其代码块一次。试图访问临界区（即传递给 dispatch_once 的代码）的不同的线程会在临界区已有一个线程的情况下被阻塞，直到临界区完成为止。</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">User</span></span></div><div class="line">+ (<span class="keyword">instancetype</span>)sharedUser</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> User *instance = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        instance = [[User alloc] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h3 id="调度组"><a href="#调度组" class="headerlink" title="调度组"></a>调度组</h3><p>Dispatch Group 会在整个组的任务都完成时通知你。这些任务可以是同步的，也可以是异步的，即便在不同的队列也行。而且在整个组的任务都完成时，Dispatch Group 可以用同步的或者异步的方式通知你。</p>
+<table>
+<thead>
+<tr>
+<th>创建group Api</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dispatch_group_t <code>dispatch_group_create</code>(void)</td>
+<td>创建一个group</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>将任务(block)添加到group</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dispatch_group_async</code>(dispatch_group_t group,<br> dispatch_queue_t queue,<br> dispatch_block_t block)</td>
+<td>异步把block提交到queue，并且将block分配到指定的group</td>
+</tr>
+<tr>
+<td><code>dispatch_group_enter</code>(dispatch_group_t group)</td>
+<td>手动表明block进入group,<code>dispatch_group_enter</code>与<code>dispatch_group_leave</code>是成对出现的。</td>
+</tr>
+<tr>
+<td><code>dispatch_group_leave</code>(dispatch_group_t group)</td>
+<td>手动表明block在group中执行完成</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>设置group完成时的通知/回调</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dispatch_group_wait</code>(dispatch_group_t group, dispatch_time_t timeout)</td>
+<td>阻塞当前线程，直到group里面所有的任务都完成或者等到某个超时发生</td>
+</tr>
+<tr>
+<td><code>dispatch_group_notify</code>(dispatch_group_t group, <br> dispatch_queue_t queue, <br>dispatch_block_t block)</td>
+<td>异步设置group里所有任务都完成时，在queue队列中执行通知回调block</td>
+</tr>
+</tbody>
+</table>
+<p>多图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">dispatch_group_t group = dispatch_group_create();</div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"test"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"http://a/%zd.png"</span>, i]];</div><div class="line">        <span class="comment">// 表示block进入group</span></div><div class="line">        dispatch_group_enter(group);</div><div class="line">        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">            <span class="comment">// 表示block执行完成</span></div><div class="line">            dispatch_group_leave(group);</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 设置等待3秒钟</span></div><div class="line">    dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span>  * <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line">    <span class="keyword">if</span>(dispatch_group_wait(group, timeoutTime))</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"图片下载超时"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"所有图片都下载完成"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>信号量让你控制多个消费者对有限数量资源的访问<br>原则：当信号量小于等于0时，<code>dispatch_semaphore_wait</code>会阻塞线程，当<code>dispatch_semaphore_signal</code>时会让信号量加1，如果这时信号量大于0，则唤醒阻塞的线程。</p>
+<table>
+<thead>
+<tr>
+<th>Api</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dispatch_semaphore_t <code>dispatch_semaphore_create</code>(long value)</td>
+<td>创建一个信号量，并且设置信号量的初始值</td>
+</tr>
+<tr>
+<td><code>dispatch_semaphore_wait</code>(dispatch_semaphore_t dsema, dispatch_time_t timeout)</td>
+<td>等待一个信号量，如果当前信号量大于0，则信号量减1，线程往下执行。否则线程阻塞，直到被信号量大于0时被唤醒或者等待超时</td>
+</tr>
+<tr>
+<td><code>dispatch_semaphore_signal</code>(dispatch_semaphore_t dsema)</td>
+<td>让信号量加1，如果当前信号量大于0，则唤醒一个waiting的线程</td>
+</tr>
+</tbody>
+</table>
+<p>图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建信号量，并且初始化为0</span></div><div class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(<span class="number">0</span>);</div><div class="line"><span class="comment">// 下载图片</span></div><div class="line">[[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://a/b.png"</span>] options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">    <span class="comment">// 设置信号量+1，此时信号量大于0，会唤醒等待的线程。</span></div><div class="line">    dispatch_semaphore_signal(semaphore);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 设置等待3秒钟</span></div><div class="line">dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span> \\* <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line"><span class="comment">// 此时线程会阻塞，只到图片下载完成或者等待超时</span></div><div class="line"><span class="keyword">if</span>(dispatch_semaphore_wait(semaphore, timeoutTime))</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"等待超时"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"图片下载完毕"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="http://www.cocoachina.com/industry/20140428/8248.html" target="_blank" rel="external">GCD 深入理解（一）</a><br><a href="http://www.cocoachina.com/industry/20140515/8433.html" target="_blank" rel="external">GCD 深入理解（二）</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/thread/" rel="tag">#thread</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/iOS多线程之NSOperations/" rel="next" title="iOS多线程之NSOperations">
+                <i class="fa fa-chevron-left"></i> iOS多线程之NSOperations
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/iOS-常用第三方库/" rel="prev" title="iOS 常用第三方库">
+                iOS 常用第三方库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/01/iOS多线程之GCD/"
+     data-title="iOS多线程之GCD"
+     data-content=""
+     data-url="https://troyz.github.io/2016/09/01/iOS多线程之GCD/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/iOS多线程之GCD/"
+           data-title="iOS多线程之GCD" data-url="https://troyz.github.io/2016/09/01/iOS多线程之GCD/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Troy Zhang" />
+          <p class="site-author-name" itemprop="name">Troy Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交任务-block-到队列-queue"><span class="nav-number">2.</span> <span class="nav-text">提交任务(block)到队列(queue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单例"><span class="nav-number">3.</span> <span class="nav-text">单例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度组"><span class="nav-number">4.</span> <span class="nav-text">调度组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">5.</span> <span class="nav-text">信号量</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Troy Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"troyz"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

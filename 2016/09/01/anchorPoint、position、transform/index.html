@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介anchorPoint为UIView的中心点，它是一个比例值，默认是CGPointMake(0.5, 0.5)，即视图的中心点在长度、宽度的一半的位置。
+position为anchorPoint点在其superLayer中的位置
+1234567891011@interface CALayer/* The position in the superlayer that the anchor po">
+<meta property="og:type" content="article">
+<meta property="og:title" content="anchorPoint、position、transform">
+<meta property="og:url" content="https://troyz.github.io/2016/09/01/anchorPoint、position、transform/index.html">
+<meta property="og:site_name" content="Troy的小站">
+<meta property="og:description" content="简介anchorPoint为UIView的中心点，它是一个比例值，默认是CGPointMake(0.5, 0.5)，即视图的中心点在长度、宽度的一半的位置。
+position为anchorPoint点在其superLayer中的位置
+1234567891011@interface CALayer/* The position in the superlayer that the anchor po">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-835daf3d9282e498.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-233942fb3a0e68d0.jpg?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-5306a6ed20118a0d.jpg?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-eb26138efc90a6e5.jpg?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2016-09-01T07:20:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="anchorPoint、position、transform">
+<meta name="twitter:description" content="简介anchorPoint为UIView的中心点，它是一个比例值，默认是CGPointMake(0.5, 0.5)，即视图的中心点在长度、宽度的一半的位置。
+position为anchorPoint点在其superLayer中的位置
+1234567891011@interface CALayer/* The position in the superlayer that the anchor po">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-835daf3d9282e498.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://troyz.github.io/2016/09/01/anchorPoint、position、transform/"/>
+
+  <title> anchorPoint、position、transform | Troy的小站 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Troy的小站</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                anchorPoint、position、transform
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-01T15:19:56+08:00" content="2016-09-01">
+              2016-09-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/01/anchorPoint、position、transform/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/anchorPoint、position、transform/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>anchorPoint</code>为<code>UIView</code>的中心点，它是一个比例值，默认是CGPointMake(0.5, 0.5)，即视图的中心点在长度、宽度的一半的位置。</p>
+<p><code>position</code>为<code>anchorPoint</code>点在其<code>superLayer</code>中的位置</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CALayer</span></span></div><div class="line"><span class="comment">/* The position in the superlayer that the anchor point of the layer's</span></div><div class="line"> * bounds rect is aligned to. Defaults to the zero point. Animatable. */</div><div class="line"><span class="keyword">@property</span> <span class="built_in">CGPoint</span> position;</div><div class="line"></div><div class="line"><span class="comment">/* Defines the anchor point of the layer's bounds rect, as a point in</span></div><div class="line"> * normalized layer coordinates - '(0, 0)' is the bottom left corner of</div><div class="line"> * the bounds rect, '(1, 1)' is the top right corner. Defaults to</div><div class="line"> * '(0.5, 0.5)', i.e. the center of the bounds rect. Animatable. */</div><div class="line"><span class="keyword">@property</span> <span class="built_in">CGPoint</span> anchorPoint;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h1 id="默认anchorPoint演示"><a href="#默认anchorPoint演示" class="headerlink" title="默认anchorPoint演示"></a>默认anchorPoint演示</h1><p><img src="http://upload-images.jianshu.io/upload_images/267318-835daf3d9282e498.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240" alt="默认情况绕中心点旋转"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#define kScreenWidth                    [[UIScreen mainScreen] bounds].size.width</span></div><div class="line"><span class="meta">#define kScreenHeight                   [[UIScreen mainScreen] bounds].size.height</span></div><div class="line"></div><div class="line"><span class="meta">#define VIEW_WIDTH                      150     // 矩形视图的宽度</span></div><div class="line"><span class="meta">#define VIEW_HEIGHT                     80     // 矩形视图的高度</span></div><div class="line"><span class="meta">#define POINT_W_H                       5       // 中心点的宽、高</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    [<span class="keyword">self</span> addView1];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)addView1</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 创建一个矩形视图</span></div><div class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((kScreenWidth - VIEW_WIDTH) / <span class="number">2.0</span>, <span class="number">60</span>, VIEW_WIDTH, VIEW_HEIGHT)];</div><div class="line">    view.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</div><div class="line">    </div><div class="line">    <span class="comment">// 在上面矩形视图的anchorPoint位置添加一个黑色圆心</span></div><div class="line">    <span class="built_in">CGPoint</span> anchorPoint = view.layer.anchorPoint;</div><div class="line">    <span class="built_in">UIView</span> *pointView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(anchorPoint.x * VIEW_WIDTH - POINT_W_H / <span class="number">2.0</span>, anchorPoint.y * VIEW_HEIGHT - POINT_W_H / <span class="number">2.0</span>, POINT_W_H, POINT_W_H)];</div><div class="line">    pointView.layer.cornerRadius = POINT_W_H / <span class="number">2.0</span>;</div><div class="line">    pointView.clipsToBounds = <span class="literal">YES</span>;</div><div class="line">    pointView.backgroundColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">    [view addSubview:pointView];</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span>.view addSubview:view];</div><div class="line">    </div><div class="line">    <span class="comment">// 旋转view，每次30度</span></div><div class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(rotateView:) withObject:view afterDelay:<span class="number">3</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)rotateView:(<span class="built_in">UIView</span> *)view</div><div class="line">&#123;</div><div class="line">    view.transform = <span class="built_in">CGAffineTransformRotate</span>(view.transform, M_PI / <span class="number">6.0</span>);</div><div class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(rotateView:) withObject:view afterDelay:<span class="number">0.5</span>];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h1 id="修改archorPoint后旋转"><a href="#修改archorPoint后旋转" class="headerlink" title="修改archorPoint后旋转"></a>修改archorPoint后旋转</h1><p><img src="http://upload-images.jianshu.io/upload_images/267318-233942fb3a0e68d0.jpg?imageMogr2/auto-orient/strip" alt="修改archorPoint为CGPoint(0.5,0)再旋转"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addView2</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 创建一个矩形视图</span></div><div class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((kScreenWidth - VIEW_WIDTH) / <span class="number">2.0</span>, <span class="number">250</span>, VIEW_WIDTH, VIEW_HEIGHT)];</div><div class="line">    view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    <span class="comment">// 修改anchorPoint为顶端中心点</span></div><div class="line">    view.layer.anchorPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>, <span class="number">0</span>);</div><div class="line">    </div><div class="line">    <span class="comment">// 在上面矩形视图的anchorPoint位置添加一个黑色圆心</span></div><div class="line">    <span class="built_in">CGPoint</span> anchorPoint = view.layer.anchorPoint;</div><div class="line">    <span class="built_in">UIView</span> *pointView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(anchorPoint.x * VIEW_WIDTH - POINT_W_H / <span class="number">2.0</span>, anchorPoint.y * VIEW_HEIGHT - POINT_W_H / <span class="number">2.0</span>, POINT_W_H, POINT_W_H)];</div><div class="line">    pointView.layer.cornerRadius = POINT_W_H / <span class="number">2.0</span>;</div><div class="line">    pointView.clipsToBounds = <span class="literal">YES</span>;</div><div class="line">    pointView.backgroundColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">    [view addSubview:pointView];</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span>.view addSubview:view];</div><div class="line">    </div><div class="line">    <span class="comment">// 旋转view，每次30度</span></div><div class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(rotateView:) withObject:view afterDelay:<span class="number">3</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="诡异动画演示"><a href="#诡异动画演示" class="headerlink" title="诡异动画演示"></a>诡异动画演示</h1><p>代码本身是期望点击button后，通过设置view的frame来让view发生位移，但却出现了诡异动画：<br><img src="http://upload-images.jianshu.io/upload_images/267318-5306a6ed20118a0d.jpg?imageMogr2/auto-orient/strip" alt="诡异动画演示"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addView3</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 创建一个正方形视图</span></div><div class="line">    squareView1 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((kScreenWidth - VIEW_HEIGHT) / <span class="number">2.0</span>, <span class="number">430</span>, VIEW_HEIGHT, VIEW_HEIGHT)];</div><div class="line">    squareView1.backgroundColor = [<span class="built_in">UIColor</span> magentaColor];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:squareView1];</div><div class="line">    </div><div class="line">    <span class="comment">// 旋转30度</span></div><div class="line">    squareView1.transform = <span class="built_in">CGAffineTransformRotate</span>(squareView1.transform, M_PI / <span class="number">6.0</span>);</div><div class="line">    </div><div class="line">    <span class="built_in">UIButton</span> *btnView = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</div><div class="line">    [btnView setTitle:<span class="string">@"修改view的位置"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    btnView.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12.0</span>];</div><div class="line">    btnView.frame = <span class="built_in">CGRectMake</span>(kScreenWidth - <span class="number">120</span>, squareView1.center.y - <span class="number">22</span>, <span class="number">120</span>, <span class="number">44</span>);</div><div class="line">    [btnView addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(updateViewOrigin) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:btnView];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 修改frame造成诡异动画</span></div><div class="line">- (<span class="keyword">void</span>)updateViewOrigin</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGRect</span> frame = squareView1.frame;</div><div class="line">    frame.origin.y -= <span class="number">15</span>;</div><div class="line">    frame.origin.x -= <span class="number">15</span>;</div><div class="line">    squareView1.frame = frame;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>出现如下诡异动画的原因是：如果view已经设置了<code>transform</code>动画，则不要再试图设置<code>frame</code>，而应该用<code>bounds</code>+<code>center</code></p>
+<blockquote>
+<p>do not use frame if view is transformed since it will not correctly reflect the actual location of the view. use bounds + center instead.</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIView</span>(<span class="title">UIViewGeometry</span>)</span></div><div class="line"><span class="comment">// animatable. do not use frame if view is transformed since it will not correctly reflect the actual location of the view. use bounds + center instead.</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CGRect</span>            frame;</div><div class="line"></div><div class="line"><span class="comment">// use bounds/center and not frame if non-identity transform. if bounds dimension is odd, center may be have fractional part</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CGRect</span>            bounds;      <span class="comment">// default bounds is zero origin, frame size. animatable</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CGPoint</span>           center;      <span class="comment">// center is center of frame. animatable</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CGAffineTransform</span> transform;   <span class="comment">// default is CGAffineTransformIdentity. animatable</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h1 id="规避诡异动画"><a href="#规避诡异动画" class="headerlink" title="规避诡异动画"></a>规避诡异动画</h1><p>通过设置<code>center</code>来移动view：<br><img src="http://upload-images.jianshu.io/upload_images/267318-eb26138efc90a6e5.jpg?imageMogr2/auto-orient/strip" alt="规避诡异动画"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addView4</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 创建一个正方形视图</span></div><div class="line">    squareView2 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((kScreenWidth - VIEW_HEIGHT) / <span class="number">2.0</span>, <span class="number">550</span>, VIEW_HEIGHT, VIEW_HEIGHT)];</div><div class="line">    squareView2.backgroundColor = [<span class="built_in">UIColor</span> magentaColor];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:squareView2];</div><div class="line">    </div><div class="line">    <span class="comment">// 旋转30度</span></div><div class="line">    squareView2.transform = <span class="built_in">CGAffineTransformRotate</span>(squareView2.transform, M_PI / <span class="number">6.0</span>);</div><div class="line">    </div><div class="line">    <span class="built_in">UIButton</span> *btnView = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeSystem</span>];</div><div class="line">    [btnView setTitle:<span class="string">@"修改view的位置"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    btnView.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12.0</span>];</div><div class="line">    btnView.frame = <span class="built_in">CGRectMake</span>(kScreenWidth - <span class="number">120</span>, squareView2.center.y - <span class="number">22</span>, <span class="number">120</span>, <span class="number">44</span>);</div><div class="line">    [btnView addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(updateViewCenter) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">    [<span class="keyword">self</span>.view addSubview:btnView];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)updateViewCenter</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGPoint</span> center = squareView2.center;</div><div class="line">    center.x -= <span class="number">15</span>;</div><div class="line">    center.y -= <span class="number">15</span>;</div><div class="line">    squareView2.center = center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考文章：<br><a href="http://wonderffee.github.io/blog/2013/10/13/understand-anchorpoint-and-position/" target="_blank" rel="external">彻底理解position与anchorPoint</a><br><a href="http://blog.csdn.net/ouyangtianhan/article/details/17510009" target="_blank" rel="external">Bug:iOS-改变view的frame后，设置transform，诡异画面</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/UIImage圆形/" rel="next" title="UIImage圆形">
+                <i class="fa fa-chevron-left"></i> UIImage圆形
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/01/判断点击、触摸区域是否属于当前UIView/" rel="prev" title="判断点击、触摸区域是否属于当前UIView">
+                判断点击、触摸区域是否属于当前UIView <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/01/anchorPoint、position、transform/"
+     data-title="anchorPoint、position、transform"
+     data-content=""
+     data-url="https://troyz.github.io/2016/09/01/anchorPoint、position、transform/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/01/anchorPoint、position、transform/"
+           data-title="anchorPoint、position、transform" data-url="https://troyz.github.io/2016/09/01/anchorPoint、position、transform/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Troy Zhang" />
+          <p class="site-author-name" itemprop="name">Troy Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认anchorPoint演示"><span class="nav-number">2.</span> <span class="nav-text">默认anchorPoint演示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改archorPoint后旋转"><span class="nav-number">3.</span> <span class="nav-text">修改archorPoint后旋转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#诡异动画演示"><span class="nav-number">4.</span> <span class="nav-text">诡异动画演示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#规避诡异动画"><span class="nav-number">5.</span> <span class="nav-text">规避诡异动画</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Troy Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"troyz"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
