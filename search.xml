@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[使用markdown语法写ppt]]></title>
+      <url>http://yoursite.com/2016/08/31/%E4%BD%BF%E7%94%A8markdown%E8%AF%AD%E6%B3%95%E5%86%99ppt/</url>
+      <content type="html"><![CDATA[<p><strong><a href="https://github.com/ksky521/nodePPT" target="_blank" rel="external">nodePPT</a></strong></p>
+<p><a href="http://qdemo.sinaapp.com/" target="_blank" rel="external">演示地址</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[七牛云-文件列表-node.js]]></title>
+      <url>http://yoursite.com/2016/08/31/%E4%B8%83%E7%89%9B%E4%BA%91-%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8-node-js/</url>
+      <content type="html"><![CDATA[<p>如题，在七牛上放了一些文件，有的时候想查看文件列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install qiniu</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$ vim file_list.js</div><div class="line"><span class="keyword">var</span> qiniu = <span class="built_in">require</span>(<span class="string">"qiniu"</span>);</div><div class="line"></div><div class="line">qiniu.conf.ACCESS_KEY = <span class="string">'************'</span>;</div><div class="line">qiniu.conf.SECRET_KEY = <span class="string">'************'</span>;</div><div class="line"><span class="keyword">var</span> bucket = <span class="string">'YOUR_BUCKET'</span>;</div><div class="line">qiniu.rsf.listPrefix(bucket, <span class="string">''</span>, <span class="string">''</span>, <span class="number">1000</span>, <span class="string">''</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, ret</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(err)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">console</span>.log(err);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">console</span>.log(ret);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ node file_list.js</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>// 输出结果：<br>{<br>  “marker”: “xxx”,<br>  “items”: [<br>    {<br>      “key”: “baicaopanjinqu/万年泉.jpg”,<br>      “hash”: “Fhyfof9FBr4P-BAnY-Y4W7FBSto5”,<br>      “fsize”: 432375,<br>      “mimeType”: “image/jpeg”,<br>      “putTime”: 14695198342091094<br>    },<br>    {<br>      “key”: “baicaopanjinqu/冰川杜鹃.jpg”,<br>      “hash”: “FqKT3TzLthFhMOVNUdy2JZV5ewI3”,<br>      “fsize”: 567102,<br>      “mimeType”: “image/jpeg”,<br>      “putTime”: 14695198328191896<br>    }<br>  ]<br>}</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>参考：<a href="http://developer.qiniu.com/code/v6/sdk/nodejs.html" target="_blank" rel="external">七牛Node.js SDK 使用指南</a>、<a href="https://github.com/qiniu/nodejs-sdk" target="_blank" rel="external">Node.js SDK 源码地址</a></p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Alfred workflow with Python]]></title>
+      <url>http://yoursite.com/2016/08/31/Alfred-workflow-with-Python/</url>
+      <content type="html"><![CDATA[<p><strong><a href="https://www.alfredapp.com/help/workflows/inputs/script-filter/" target="_blank" rel="external">Using Script Filter objects</a></strong></p>
+<p><strong><a href="https://github.com/deanishe/alfred-workflow" target="_blank" rel="external">alfred-workflow</a></strong></p>
+<p><strong><a href="http://www.deanishe.net/alfred-workflow/tutorial.html" target="_blank" rel="external">Tutorial</a></strong></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mac与iPhone/iPad设备数据同步（基于USB）]]></title>
+      <url>http://yoursite.com/2016/08/31/Mac%E4%B8%8EiPhone-iPad%E8%AE%BE%E5%A4%87%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%88%E5%9F%BA%E4%BA%8EUSB%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>Mac与iPhone/iPad之间数据传输常见的有以下几种方式：</p>
+<ul>
+<li>AirDrop</li>
+<li>蓝牙</li>
+<li>iCloud共享</li>
+<li>iTunes</li>
+<li>Mac上<code>照片</code>应用导入<br>以上几种方式都可以，而且前面3种不需要USB就可进行，后面2种需要借助iPhone电源线插入Mac的USB接口才能使用。</li>
+</ul>
+<p>但是，这几种方式都不是我想要的，因为这几种方式都<code>需要在Mac、iPhone设备上来来回回的配置</code>，而我比较懒~~~。</p>
+<p>我需要一种<code>自动化</code>的工具来帮我完成数据同步，当iPhone电源线接到Mac后，可以用命令行来完成数据的同步工作。</p>
+<blockquote>
+<p><strong>初衷：</strong>iPhone版本的<strong><code>百度云盘App</code>不能免费同步视频</strong>了，需要开通会员才行！（⊙o⊙）其实我写这篇文章的目的只是想把手机上的视频自动上传到百度云盘而已！</p>
+</blockquote>
+<h3 id="MobileDevice"><a href="#MobileDevice" class="headerlink" title="MobileDevice"></a>MobileDevice</h3><p><strong><a href="https://github.com/mountainstorm/MobileDevice" target="_blank" rel="external">MobileDevice</a></strong>是一个Python的命令行工具，它封装了苹果的MobileDevice API（C）</p>
+<h5 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python MobileDevice/ afc -h</div></pre></td></tr></table></figure>
+<p>可以看到它支持以下用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ls                  lists the contents of the directory</div><div class="line">mkdir               creates a directory</div><div class="line">rm                  remove directory/file</div><div class="line">rmdir               remove directory/file</div><div class="line">ln                  create a link (symbolic or hard)</div><div class="line">get                 retrieve a file from the device</div><div class="line">put                 upload a file from the device</div><div class="line">view                retrieve a file from the device and preview as txt</div></pre></td></tr></table></figure></p>
+<h5 id="简单使用一下"><a href="#简单使用一下" class="headerlink" title="简单使用一下"></a>简单使用一下</h5><p>查看iPhone的<code>/var/mobile/Media/</code>的子目录信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$ python MobileDevice/ afc ls /var/mobile/Media/</div><div class="line">0: ******************** - &quot;“issuser”的 iPhone&quot;</div><div class="line">afc:  /</div><div class="line">d  102  04 Jan 08:18  AirFair/</div><div class="line">d  306  10 Aug 02:28  Airlock/</div><div class="line">d  238  23 Nov 01:42  Books/</div><div class="line">d  136  10 Aug 02:34  DCIM/</div><div class="line">d  170  10 Aug 02:42  Downloads/</div><div class="line">d  170  23 Nov 04:42  MediaAnalysis/</div><div class="line">d  850  10 Aug 02:47  PhotoData/</div><div class="line">d   68  10 Aug 02:43  Photos/</div><div class="line">d   68  10 Aug 03:00  PublicStaging/</div><div class="line">d  102  04 Jan 08:18  Purchases/</div><div class="line">d  170  31 Dec 08:54  Radio/</div><div class="line">d   68  30 Dec 03:11  Recordings/</div><div class="line">d  102  10 Aug 02:28  Safari/</div><div class="line">d   68  04 Jan 08:07  general_storage/</div><div class="line">d  204  04 Jan 08:18  iTunes_Control/</div><div class="line">-  181  04 Jan 08:44  ifbfav.plist</div></pre></td></tr></table></figure></p>
+<p><code>DCIM</code>就是iPhone的照片、视频保存的文件夹；没错，我们需要从这个目录获取(<code>get</code>)视频。</p>
+<h5 id="列出iPhone下的照片、视频"><a href="#列出iPhone下的照片、视频" class="headerlink" title="列出iPhone下的照片、视频"></a>列出iPhone下的照片、视频</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ python MobileDevice/ afc ls /var/mobile/Media/DCIM/100APPLE</div><div class="line">0: ******************** - &quot;“issuser”的 iPhone&quot;</div><div class="line">afc:  /DCIM/100APPLE</div><div class="line">-   6164996  10 Aug 02:32  IMG_0037.PNG</div><div class="line">-     18738  10 Aug 02:44  IMG_0038.JPG</div><div class="line">-  15705880  10 Aug 02:47  IMG_0039.MOV</div></pre></td></tr></table></figure>
+<p><code>MOV</code>格式就是视频，</p>
+<h5 id="拷贝iPhone视频到Mac"><a href="#拷贝iPhone视频到Mac" class="headerlink" title="拷贝iPhone视频到Mac"></a>拷贝iPhone视频到Mac</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python MobileDevice/ afc get /var/mobile/Media/DCIM/100APPLE/IMG_0039.MOV IMG_0039.MOV</div></pre></td></tr></table></figure>
+<h3 id="自动化脚本"><a href="#自动化脚本" class="headerlink" title="自动化脚本"></a>自动化脚本</h3><ul>
+<li>增量式拷贝iPhone的视频到Mac</li>
+<li>如果某个视频文件在Mac上已经存在，则跳过。<br><strong><code>movie.py</code></strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">#! /usr/bin/python</div><div class="line">#coding=utf-8</div><div class="line"># -*- coding:utf8 -*-</div><div class="line"></div><div class="line">from MobileDevice import *</div><div class="line">import os</div><div class="line">import shutil</div><div class="line">import sys</div><div class="line">reload(sys)</div><div class="line"></div><div class="line">sys.setdefaultencoding(&apos;utf8&apos;)</div><div class="line"></div><div class="line">def listIphoneMovies(afc, path):</div><div class="line">    for name in afc.listdir(path):</div><div class="line">        isdir = u&apos;&apos;</div><div class="line">        if afc.lstat(path + name).st_ifmt == stat.S_IFDIR:</div><div class="line">            isdir = u&apos;/&apos;</div><div class="line">        # print path + name + isdir</div><div class="line">        if afc.lstat(path + name).st_ifmt == stat.S_IFDIR:</div><div class="line">            listIphoneMovies(afc, path + name + isdir)</div><div class="line">        else:</div><div class="line">            (_,ext) = os.path.splitext(name)</div><div class="line">            if ext.lower() == &quot;.mov&quot;:</div><div class="line">                copyMovieFileFromIphoneToMac(afc, path, name)</div><div class="line"></div><div class="line">def copyMovieFileFromIphoneToMac(afc, path, name):</div><div class="line">    spath = path + name</div><div class="line">    dpath = os.path.join(&apos;/Users/issuser/百度云同步盘/iPhone视频&apos;, name)</div><div class="line">    tmppath = os.path.join(os.getcwd(), name)</div><div class="line">    if os.path.exists(dpath):</div><div class="line">        print(&quot;Movie already exists on Mac: &quot; + spath)</div><div class="line">        return</div><div class="line">    print(&quot;copy iPhone movie: &quot; + path + name + &quot; to Mac: &quot; + dpath)</div><div class="line">    s = afc.open(spath, u&apos;r&apos;)</div><div class="line">    d = open(tmppath, u&apos;w+&apos;)</div><div class="line">    len = 2048</div><div class="line">    while True:</div><div class="line">        buf = s.read(len)</div><div class="line">        if not buf:</div><div class="line">            break</div><div class="line">        d.write(buf)</div><div class="line">    # d.write(s.readall())</div><div class="line">    d.close()</div><div class="line">    s.close()</div><div class="line">    shutil.move(tmppath, dpath)</div><div class="line"></div><div class="line"></div><div class="line">dev = list_devices().values()[0]</div><div class="line">dev.connect()</div><div class="line">#afc = AFC(dev)</div><div class="line">afc = afcmediadirectory.AFCMediaDirectory(dev)</div><div class="line">#listIphoneMovies(afc, u&apos;/var/mobile/Media&apos;) # recursive print of all files visible</div><div class="line">listIphoneMovies(afc, u&apos;/DCIM/100APPLE/&apos;) # recursive print of all files visible</div><div class="line"></div><div class="line">afc.disconnect()</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong>，<a href="https://github.com/mountainstorm/MobileDevice" target="_blank" rel="external">MobileDevice</a>的<a href="https://github.com/mountainstorm/MobileDevice/blob/master/README.md" target="_blank" rel="external">README.md</a>中的例子有问题，不能直接运行；编写脚本的时候可以参考<a href="https://github.com/mountainstorm/MobileDevice/blob/master/afcmediadirectory.py" target="_blank" rel="external">afcmediadirectory.py</a>中的<code>cmd_*</code>函数</p>
+</blockquote>
+<h5 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python movie.py</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Movie already exists on Mac: /DCIM/100APPLE/IMG_0038.MOV</div><div class="line">copy iPhone movie: /DCIM/100APPLE/IMG_0039.MOV to Mac: /.../IMG_0039.MOV</div></pre></td></tr></table></figure>
+<h5 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h5><p>现在我们已经将iPhone上的视频拷贝到Mac的目录了，下一步就设置百度云Mac客户端的默认同步目录为上面的Mac目录，视频就自动从Mac上传到百度云盘了。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Charles中文乱码]]></title>
+      <url>http://yoursite.com/2016/08/31/Charles%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>正常情况下，<code>Server</code>端提供给<code>Client</code>端的所有接口的<code>Response</code>中应该有字符集的<code>Header</code>设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Content-Type: application/json;charset=UTF-8</div></pre></td></tr></table></figure></p>
+<p>如果没有，可能造成某些平台的<code>Client</code>中文解析乱码。</p>
+<p>很不幸，我们团队的<code>Server</code>端开发人员的意识不够，很多<code>JSON</code>接口都不规范，用<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>抓包中文乱码。</p>
+<p>以下为解决<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>中文乱码的方案：</p>
+<h3 id="方案1：修改Charles的配置文件Info-plist"><a href="#方案1：修改Charles的配置文件Info-plist" class="headerlink" title="方案1：修改Charles的配置文件Info.plist"></a>方案1：修改<code>Charles</code>的配置文件<code>Info.plist</code></h3><p>右键Charles-&gt;在Finder中显示-&gt;右键<code>Charles.app</code>-&gt;显示包内容-&gt;Contents-&gt;双击打开Info.plist</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改JVMOptions: -Dfile.encoding=UTF-8"></p>
+<p>网上很多人都是用这种方式，但是我试了下，没有成功，我的<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>版本是<code>v3.11.1</code></p>
+<h3 id="方案2：在Charles中Rewrite-Header"><a href="#方案2：在Charles中Rewrite-Header" class="headerlink" title="方案2：在Charles中Rewrite Header"></a>方案2：在<code>Charles</code>中<code>Rewrite</code> <code>Header</code></h3><p>打开<code>Charles</code>-&gt;Tool-&gt;Rewrite-&gt;勾选<code>Enable Rewrite</code>-&gt;点击<code>Sets</code>面板<code>Add</code>按钮-&gt;右侧<code>Locations</code>面板点击<code>Add</code>按钮输入url匹配规则(你server端的url规则)-&gt;右侧<code>Rules</code>面板点击<code>Add</code>按钮输入，详情如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/267318-6f7d52c438b67551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Charles Rewrite规则配置"></p>
+<p><strong>注意</strong>：这里需要根据你<code>Server</code>端返回数据的具体情况来，因为我的<code>Server</code>端并没有返回<code>Content-Type</code>这个Header，并且所有接口都返回了<code>Server: Apache-Coyote/1.1</code>这个Header，所以我这个<code>Rewrite</code>规则实际上是修改<code>Server: Apache-Coyote/1.1</code>为<code>Content-Type: application/json;charset=UTF-8</code></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[多SSH KEY管理]]></title>
+      <url>http://yoursite.com/2016/08/31/%E5%A4%9ASSH-KEY%E7%AE%A1%E7%90%86/</url>
+      <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>我的<code>Mac</code>要求既可以提交代码到<code>github</code>，也可以提交代码到<code>oschina</code>，提交的时候都走<code>ssh</code>协议，但是默认情况下只能有一个<code>ssh key</code>(~/ssh)</p>
+<p><a href="http://yijiebuyi.com/blog/f18d38eb7cfee860c117d629fdb16faf.html" target="_blank" rel="external">同一台电脑关于多个SSH KEY管理</a></p>
+<p><a href="https://git.oschina.net/oschina/git-osc/wikis/%E5%B8%AE%E5%8A%A9#ssh-keys" target="_blank" rel="external">开源中国SSH Key</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Http抓包]]></title>
+      <url>http://yoursite.com/2016/08/31/Http%E6%8A%93%E5%8C%85/</url>
+      <content type="html"><![CDATA[<h3 id="抓包工具"><a href="#抓包工具" class="headerlink" title="抓包工具"></a>抓包工具</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>OS</th>
+<th>特点</th>
+<th>教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.telerik.com/fiddler" target="_blank" rel="external">Fiddler</a></td>
+<td>Windows</td>
+<td><strong>监控</strong>机器上发送的Http(s)请求<br> 模拟发送Get/Post请求<br>可作为<strong>代理</strong></td>
+<td><a href="http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f73260878e482a958448e435061e5a00b0e77e484b578ed82f2750f51218bded367034033db59bd58a4ec0bb93292a8d273e671cf11b548c47bb8e1b65972fc401bff947b0fae732e2f494959d&amp;p=8b2a97299fb111a05be6912a1e5e8b&amp;newp=8b2a97128d821deb08e29775080789231610db2151d4d31f6b82c825d7331b001c3bbfb423231302d6c1796404ac495de8f436793d092ba3dda5c91d9fb4c57479df7c752c58&amp;user=baidu&amp;fm=sc&amp;query=fiddler+http&amp;qid=eed90de700111576&amp;p1=9" target="_blank" rel="external">Fiddler教程</a><br>.<br><a href="http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/ConfigureForiOS" target="_blank" rel="external">SSL Certificates</a></td>
+</tr>
+<tr>
+<td><a href="http://www.getpostman.com/" target="_blank" rel="external">PostMan</a></td>
+<td>跨平台</td>
+<td>可模拟发送Get/Post请求<br>保存请求、重命名<br>环境变量、批量测试</td>
+<td><a href="http://www.jianshu.com/p/615f668d91a6" target="_blank" rel="external">API开发神器-Postman</a> <br>.<br><a href="https://www.getpostman.com/docs/sandbox" target="_blank" rel="external">Testing Sandbox</a> <br>.<br><a href="http://blog.getpostman.com/2016/06/26/using-postman-proxy-to-capture-and-inspect-api-calls-from-ios-or-android-devices/" target="_blank" rel="external">代理iPhone/Android设备</a></td>
+</tr>
+<tr>
+<td><a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a></td>
+<td>跨平台</td>
+<td><strong>监控</strong>机器上发送的Http(s)请求<br> 模拟发送Get/Post请求<br>可作为<strong>代理</strong></td>
+<td><a href="http://blog.devtang.com/2015/11/14/charles-introduction/" target="_blank" rel="external">Charles 从入门到精通</a> <br>.<br> <a href="http://www.jianshu.com/p/7a332f6ccfbd" target="_blank" rel="external">Charles中文乱码</a><br>.<br><a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/" target="_blank" rel="external">SSL Certificates</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>代理</strong>工具的用途：举个例子，你可以在iPhone上配置网络代理为你PC机器上<code>Fiddler</code>/<code>Charles</code>监听的IP、端口，然后<code>Fiddler</code>/<code>Charles</code>就可以监听到你iPhone设备上发送的Http(s)请求。</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>http://yoursite.com/2016/08/12/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    </entry>
+    
+  
+  
+</search>
