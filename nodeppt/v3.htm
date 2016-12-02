@@ -1,0 +1,239 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 2016年12月2日
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>V3 进度汇报 + 开发技巧 - By Troy Zhang</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.colors.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Travel V3 进度汇报 + 开发技巧</h1>
+<h3>分享者：Troy Zhang</h3>
+
+</article></section></slide>
+<slide class="slide" data-transition="glue"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>V3进度报告</h1>
+<ul class="bounceIn">
+<li>首页、非x不可、景区、酒店、美食列表</li>
+<li>资讯、节庆活动列表详情</li>
+<li>手绘图导游导览、语音播报</li>
+<li>足迹列表、详情（部分）</li>
+<li>个人中心：登录、注册、编辑、粉丝</li>
+<li>iOS、Android打包</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>V3 App下载地址</h1>
+<h3><img src="https://www.pgyer.com/app/qrcode/TravelV3" alt="下载地址"></h3>
+<blockquote>
+<p>温馨提示：如果你无法下载<code>iOS</code>的App，请将你设备的<a href="https://www.pgyer.com/udid" target="_blank"><code>UDID</code></a>发送给我</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide" data-transition="pulse"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>下一步</h1>
+<ul class="bounceIn">
+<li>行程</li>
+<li>预订、支付、订单</li>
+<li>百度地图</li>
+<li>即时通讯</li>
+<li>足迹发布、多图片选择、上传、浏览、保存</li>
+<li>样式调整</li>
+<li>用户第三视角、其它功能完善</li>
+<li>针对<code>Android</code>的性能优化</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>创建page/componet/provider</h1>
+<pre><code class="bash">// **需要到app.module.ts中注册**
+// 创建component
+$ ionic g component QicklyComponent --componentsDir src/pages/home
+
+// 创建page
+$ ionic g page NewsDetailPage --pagesDir src/pages/news
+
+// 创建service
+$ ionic g provider HttpClient --providersDir src/providers
+</code></pre>
+
+</article></section></slide>
+<slide class="slide" data-transition="vertical3d"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>iOS、Android 打包</h1>
+<pre><code class="bash">// 添加 iOS 支持
+$ ionic platform add ios
+
+// 编译iOS工程
+$ ionic build ios
+
+// 运行到iOS模拟器
+$ ionic emulate ios
+
+// 运行到iOS真机
+$ ionic run ios
+
+// 上传到蒲公英、AppStore
+$ cd platform/ios &amp;&amp; fastlane ios adhoc comments:&quot;YOUR CHANGELOG&quot;
+
+// 添加 Android 支持
+$ ionic platform add ios
+
+// 编译Android工程
+$ ionic build android
+
+// 运行到Android模拟器
+$ ionic emulate android
+
+// 运行到Android真机
+$ ionic run android
+
+// 上传到蒲公英 `TODO`
+</code></pre>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>开发小技巧</h1>
+<ul class="bounceIn">
+<li>image 路径、image 如何不变形</li>
+<li><code>json</code>对象转成<code>model</code>对象</li>
+<li><code>手绘图</code>是如何实现的?（Third Library、File copy）</li>
+<li>model/component/provider///引入</li>
+<li>事件编写：<code>EventEmitter.emit()</code></li>
+<li><code>click</code> or <code>tap</code> Event</li>
+<li>列表中元素事件冒泡问题</li>
+<li>如何编写样式</li>
+<li>定位当前位置</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1><code>Angular</code> 表达式</h1>
+<pre><code class="javascript">// 属性、事件 绑定
+// `heroImageUrl`是变量
+&lt;img [src]=&quot;heroImageUrl&quot;&gt;、&lt;img src=&quot;{{heroImageUrl}}&quot;&gt;
+&lt;div (tap)=&quot;this.activityItemClick.emit(1)&quot;&gt;&lt;/div&gt;
+
+// 隐藏/显示/移除 元素，**区别**
+&lt;ion-infinite-scroll [style.display]=&quot;hasMore ? &#39;block&#39; : &#39;none&#39;&quot;&gt;&lt;/ion-infinite-scroll&gt;
+&lt;ion-infinite-scroll [class.hidden]=&quot;!hasMore&quot;&gt;&lt;/ion-infinite-scroll&gt;
+// 移除
+&lt;ion-infinite-scroll *ngIf=&quot;hasMore&quot;&gt;&lt;/ion-infinite-scroll&gt;
+
+// NgSwitch
+&lt;div [ngSwitch]=&quot;mySeg&quot;&gt;
+    &lt;div *ngSwitchCase=&quot;&#39;news&#39;&quot;&gt;...&lt;/div&gt;
+    &lt;div *ngSwitchCase=&quot;&#39;notice&#39;&quot;&gt;...&lt;/div&gt;
+    &lt;div *ngSwitchCase=&quot;&#39;activity&#39;&quot;&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+// NgFor
+&lt;div *ngFor=&quot;let activity of activityList; let i = index;&quot; (tap)=&quot;this.activityItemClick.emit(activity)&quot;&gt;...&lt;/div&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>网络请求</h1>
+<ul class="bounceIn">
+<li><a href="https://angular.cn/docs/ts/latest/guide/server-communication.html" target="_blank">@angular/http</a></li>
+<li>跨域问题</li>
+<li><code>POST</code>请求：<a href="http://ionicframework.com/docs/v2/native/http/" target="_blank">Native HTTP</a></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>文档</h1>
+<ul class="bounceIn">
+<li><a href="http://ionicframework.com/docs/v2/" target="_blank">ionic官方文档</a></li>
+<li><a href="https://angular.cn/docs/ts/latest/" target="_blank">Angular官方文档</a></li>
+<li><a href="https://angular.cn/docs/ts/latest/guide/template-syntax.html" target="_blank">Angular模板语法</a></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>谢谢大家!</h1>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'zoomin',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+
+
+<!--placeholder-->
+</body>
+</html>
