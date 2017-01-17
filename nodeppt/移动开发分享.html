@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移动开发分享</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><p><div class="toc">
+<ul>
+<li><a href="#h5-flexbox-布局">H5 + flexbox 布局</a><ul>
+<li><ul>
+<li><a href="#父控件">父控件</a><ul>
+<li><ul>
+<li><a href="#声明使用flexbox布局">声明使用flexbox布局</a></li>
+<li><a href="#方向换行">方向、换行</a></li>
+<li><a href="#水平方向对齐方式">水平方向对齐方式</a></li>
+<li><a href="#竖直方向对齐方式">竖直方向对齐方式</a></li>
+<li><a href="#竖直方向多余空间调整换行情况下">竖直方向多余空间调整（换行情况下）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#子控件">子控件</a><ul>
+<li><ul>
+<li><a href="#竖直方向对齐方式-1">竖直方向对齐方式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#ionic-最佳实践">ionic 最佳实践</a><ul>
+<li><ul>
+<li><a href="#开发">开发</a><ul>
+<li><ul>
+<li><a href="#创建componentpageservice">创建component/page/service</a></li>
+<li><a href="#添加第三方js-library">添加第三方js library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#网络请求http-clientts">网络请求http-client.ts</a><ul>
+<li><ul>
+<li><a href="#能够跨域的接口">能够跨域的接口</a></li>
+<li><a href="#不能跨域的接口">不能跨域的接口</a></li>
+<li><a href="#promise-与-observable">Promise 与 Observable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#json-class">json &lt;–&gt; class</a><ul>
+<li><ul>
+<li><a href="#classutilts">ClassUtil.ts</a></li>
+<li><a href="#递归解析">递归解析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#浏览器调试">浏览器调试</a></li>
+<li><a href="#平台判断">平台判断</a></li>
+<li><a href="#androidios统一显示ios的样式">Android、iOS统一显示iOS的样式</a></li>
+<li><a href="#gitignore">.gitignore</a></li>
+<li><a href="#性能调优">性能调优</a><ul>
+<li><ul>
+<li><a href="#js-library-加载优化">js library 加载优化</a></li>
+<li><a href="#编译压缩">编译/压缩</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#h5-call-native">H5 call Native</a><ul>
+<li><ul>
+<li><a href="#plugin管理">plugin管理</a></li>
+<li><a href="#cordova-plugin-travel">cordova-plugin-travel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#native打包">Native打包</a><ul>
+<li><ul>
+<li><a href="#platform管理">platform管理</a></li>
+<li><a href="#plugin管理如上">plugin管理（如上）</a></li>
+<li><a href="#androidios项目配置">Android、iOS项目配置</a></li>
+<li><a href="#ios打包脚本">iOS打包脚本</a><ul>
+<li><ul>
+<li><a href="#fastlane简介">fastlane简介</a></li>
+<li><a href="#fastlane配置">fastlane配置</a></li>
+<li><a href="#脚本打包样例">脚本打包样例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#android打包脚本">Android打包脚本</a></li>
+<li><a href="#自动打包平台">自动打包平台</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#cordova-plugin-travel-1">cordova-plugin-travel</a><ul>
+<li><ul>
+<li><a href="#使用方式">使用方式</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#其它">其它</a><ul>
+<li><ul>
+<li><a href="#开发工具">开发工具</a></li>
+<li><a href="#网络工具">网络工具</a></li>
+<li><a href="#版本工具">版本工具</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</p>
+
+<h1 id="h5-flexbox-布局">H5 + flexbox 布局</h1>
+
+<blockquote>
+  <p>为了便于调试、不重度依赖<code>ionic</code>，要尽量少的使用<code>ionic</code>提供的UI 组件，简单的页面推荐使用 <a href="http://www.w3cplus.com/css3/a-guide-to-flexbox-new.html"><code>flexbox</code></a>来进行布局。</p>
+</blockquote>
+
+
+
+<h3 id="父控件">父控件</h3>
+
+<h5 id="声明使用flexbox布局">声明使用flexbox布局</h5>
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">display</span>: <span class="hljs-tag">-webkit-flex</span>;
+<span class="hljs-tag">display</span>: <span class="hljs-tag">flex</span>;</code></pre>
+
+
+
+<h5 id="方向换行">方向、换行</h5>
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">flex-direction</span>: <span class="hljs-tag">row</span> | <span class="hljs-tag">row-reverse</span> | <span class="hljs-tag">column</span> | <span class="hljs-tag">column-reverse</span>;
+<span class="hljs-tag">flex-wrap</span>: <span class="hljs-tag">nowrap</span> | <span class="hljs-tag">wrap</span> | <span class="hljs-tag">wrap-reverse</span>;
+
+<span class="hljs-tag">flex-flow</span>: <span class="hljs-tag">row</span> <span class="hljs-tag">wrap</span>;</code></pre>
+
+
+
+<h5 id="水平方向对齐方式">水平方向对齐方式</h5>
+
+
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">justify-content</span>: <span class="hljs-tag">flex-start</span> | <span class="hljs-tag">flex-end</span> | <span class="hljs-tag">center</span> | <span class="hljs-tag">space-between</span> | <span class="hljs-tag">space-around</span>;</code></pre>
+
+<h5 id="竖直方向对齐方式">竖直方向对齐方式</h5>
+
+
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">align-items</span>: <span class="hljs-tag">flex-start</span> | <span class="hljs-tag">flex-end</span> | <span class="hljs-tag">center</span> | <span class="hljs-tag">baseline</span> | <span class="hljs-tag">stretch</span>;</code></pre>
+
+
+
+<h5 id="竖直方向多余空间调整换行情况下">竖直方向多余空间调整（换行情况下）</h5>
+
+
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">align-content</span>: <span class="hljs-tag">flex-start</span> | <span class="hljs-tag">flex-end</span> | <span class="hljs-tag">center</span> | <span class="hljs-tag">space-between</span> | <span class="hljs-tag">space-around</span> | <span class="hljs-tag">stretch</span>;</code></pre>
+
+
+
+<h3 id="子控件">子控件</h3>
+
+
+
+<h5 id="竖直方向对齐方式-1">竖直方向对齐方式</h5>
+
+
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-tag">align-self</span>: <span class="hljs-tag">auto</span> | <span class="hljs-tag">flex-start</span> | <span class="hljs-tag">flex-end</span> | <span class="hljs-tag">center</span> | <span class="hljs-tag">baseline</span> | <span class="hljs-tag">stretch</span>;</code></pre>
+
+
+
+<h1 id="ionic-最佳实践">ionic 最佳实践</h1>
+
+
+
+<h3 id="开发">开发</h3>
+
+
+
+<h5 id="创建componentpageservice">创建component/page/service</h5>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// **需要到app.module.ts中注册**
+// 创建component
+$ ionic g component QicklyComponent --componentsDir src/pages/home
+
+// 创建page
+$ ionic g page NewsDetailPage --pagesDir src/pages/news
+
+// 创建service
+$ ionic g provider HttpClient --providersDir src/providers</code></pre>
+
+
+
+<h5 id="添加第三方js-library">添加第三方js library</h5>
+
+<ul>
+<li><strong>配置</strong> <br>
+<ul><li>index.html</li>
+<li>copy.config.js</li></ul></li>
+<li>使用</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">// 声明百度地图的变量</span>
+declare <span class="hljs-keyword">let</span> BMap:any;
+declare <span class="hljs-keyword">let</span> BMAP_STATUS_SUCCESS:any;
+
+<span class="hljs-comment">// 使用百度地图 Api</span>
+<span class="hljs-keyword">let</span> convertor = <span class="hljs-keyword">new</span> BMap.Convertor();</code></pre>
+
+
+
+<h3 id="网络请求http-clientts">网络请求<a href="http://iss110301000305/blob/QYTravelV3.git/master/src%2Fproviders%2Fhttp-client.ts">http-client.ts</a></h3>
+
+
+
+<h5 id="能够跨域的接口">能够跨域的接口</h5>
+
+<ul>
+<li>native</li>
+<li>h5</li>
+</ul>
+
+
+
+<h5 id="不能跨域的接口">不能跨域的接口</h5>
+
+<ul>
+<li>native</li>
+<li>浏览器开发调试</li>
+</ul>
+
+
+
+<h5 id="promise-与-observable">Promise 与 Observable</h5>
+
+
+
+<h3 id="json-class">json &lt;–&gt; class</h3>
+
+
+
+<h5 id="classutilts"><a href="http://iss110301000305/blob/QYTravelV3.git/master/src%2Futils%2FClassUtil.ts">ClassUtil.ts</a></h5>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">ClassUtil.jsonToClass(jsonObj, UserInfoModel)</code></pre>
+
+
+
+<h5 id="递归解析">递归解析</h5>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">export <span class="hljs-keyword">class</span> UserInfoModel
+{
+  ID: number = <span class="hljs-number">0</span>;
+  isValid():boolean
+  {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ID != <span class="hljs-number">0</span>;
+  }
+  update(newUserInfo:UserInfoModel)
+  {
+  }
+}
+export <span class="hljs-keyword">class</span> LoginResponseGroupModel extends ISSHttpResponse
+{
+  results:UserInfoModel;
+  status:string;
+  nestedPropertyMap()
+  {
+    <span class="hljs-keyword">return</span> {
+      results:UserInfoModel
+    }
+  }
+}</code></pre>
+
+
+
+<h3 id="浏览器调试">浏览器调试</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ ionic serve</code></pre>
+
+
+
+<h3 id="平台判断">平台判断</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// android 平台
+<span class="hljs-keyword">if</span>(this.platform.is(<span class="hljs-string">"android"</span>)){}
+
+// ios 平台
+<span class="hljs-keyword">if</span>(this.platform.is(<span class="hljs-string">"ios"</span>)){}
+
+&lt;button showWhen=<span class="hljs-string">"android"</span>&gt;我是Android平台&lt;/button&gt;
+&lt;button showWhen=<span class="hljs-string">"ios"</span>&gt;我是iOS平台&lt;/button&gt;</code></pre>
+
+
+
+<h3 id="androidios统一显示ios的样式">Android、iOS统一显示iOS的样式</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">// app.modules.ts</span>
+IonicModule.forRoot(MyApp, {
+  tabsHideOnSubPages:<span class="hljs-string">"true"</span>, <span class="hljs-comment">// nav在push的时候隐藏tabs</span>
+  backButtonText: <span class="hljs-string">''</span>,        <span class="hljs-comment">// 不显示back按钮上的文字</span>
+  iconMode: <span class="hljs-string">'ios'</span>,
+  mode: <span class="hljs-string">'ios'</span>
+})</code></pre>
+
+
+
+<h3 id="gitignore">.gitignore</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ cat .gitignore
+node_modules/
+platforms/
+plugins/
+www/</code></pre>
+
+
+
+<h3 id="性能调优">性能调优</h3>
+
+
+
+<h5 id="js-library-加载优化">js library 加载优化</h5>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">// 异步加载js</span>
+&lt;script async defer type=<span class="hljs-string">"text/javascript"</span> src=<span class="hljs-string">"build/bmap.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+// 代码异步追加 js library
+appendDependencyJavascript()
+{
+  let jsList = ["build/tripledes.js", "build/mode-ecb.js"];
+  for(let i = 0; i<span class="hljs-tag">&lt; <span class="hljs-attribute">jsList.length</span>; <span class="hljs-attribute">i</span>++)
+  {
+    <span class="hljs-attribute">let</span> <span class="hljs-attribute">js</span> = <span class="hljs-attribute">jsList</span>[<span class="hljs-attribute">i</span>];
+    <span class="hljs-attribute">let</span> <span class="hljs-attribute">s</span> = <span class="hljs-attribute">document.createElement</span>("<span class="hljs-attribute">script</span>");
+    <span class="hljs-attribute">s.type</span> = "<span class="hljs-attribute">text</span>/<span class="hljs-attribute">javascript</span>";
+    <span class="hljs-attribute">s.src</span> = <span class="hljs-attribute">js</span>;
+    <span class="hljs-attribute">window.setTimeout</span>(()=&gt;</span>{
+      document.body.appendChild(s);
+    }, 1000 * (i + 1));
+  }
+}</span></code></pre>
+
+
+
+<h5 id="编译压缩">编译/压缩</h5>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ ionic build ios --prod --release
+$ ionic build android --prod --release</code></pre>
+
+
+
+<h1 id="h5-call-native">H5 call Native</h1>
+
+
+
+<h3 id="plugin管理">plugin管理</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// 添加plugin
+$ ionic plugin add http://iss110301000305/r/cordova-plugin-travel.git<span class="hljs-comment">#0.0.1</span>
+
+$ ionic plugin add cordova-plugin-http
+
+$ ionic plugin add https://github.com/charleyw/cordova-plugin-alipay.git --variable PARTNER_ID=<span class="hljs-number">22222222</span> --variable SELLER_ACCOUNT=<span class="hljs-number">123</span>@qq.com --variable PRIVATE_KEY=MIICdwIBADANBgkqhkiG9w0
+
+// 删除plugin
+$ ionic plugin remove cordova-plugin-travel
+
+// 拷贝plugin的js资源文件到platforms下、修改iOS/Android工程配置信息
+$ cordova prepare
+
+// 保存状态
+$ ionic state save
+$ cordova plugin save</code></pre>
+
+
+
+<h3 id="cordova-plugin-travel"><a href="http://iss110301000305/docs/cordova-plugin-travel.git">cordova-plugin-travel</a></h3>
+
+
+
+<h1 id="native打包">Native打包</h1>
+
+
+
+<h3 id="platform管理">platform管理</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// 添加android平台
+$ ionic platform add android@<span class="hljs-number">6.1</span>.<span class="hljs-number">0</span>
+
+// 添加iOS平台
+$ ionic platform add ios@<span class="hljs-number">4.3</span>.<span class="hljs-number">0</span>
+
+// 删除平台
+$ ionic platform remove android</code></pre>
+
+
+
+<h3 id="plugin管理如上">plugin管理（如上）</h3>
+
+
+
+<h3 id="androidios项目配置"><a href="http://iss110301000305/tree/QYTravelV3.git/master/auto-build-script">Android、iOS项目配置</a></h3>
+
+<ul>
+<li>配置app名称、splash page、app version、权限、横竖屏等</li>
+<li><a href="http://iss110301000305/blob/QYTravelV3.git/master/config.xml">config.xml</a></li>
+<li><a href="http://iss110301000305/blob/cordova-plugin-travel.git/master/plugin.xml">cordova-plugin-travel/plugin.xml</a></li>
+</ul>
+
+
+
+<h3 id="ios打包脚本">iOS打包脚本</h3>
+
+
+
+<h5 id="fastlane简介"><a href="https://github.com/fastlane/fastlane">fastlane简介</a></h5>
+
+
+
+<h5 id="fastlane配置">fastlane配置</h5>
+
+<ul>
+<li>脚本配置 <br>
+<ul><li>Appfile</li>
+<li>Fastlane</li>
+<li>Matchfile</li></ul></li>
+<li>证书</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// <span class="hljs-number">1</span>, 根据bundle id去苹果网站生成`App ID`
+
+// <span class="hljs-number">2</span>, 生成证书
+$ match development
+$ match adhoc
+$ match appstore</code></pre>
+
+
+
+<h5 id="脚本打包样例">脚本打包样例</h5>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">// adhoc
+$ fastlane ios adhoc comments:<span class="hljs-string">"修复bugs"</span>
+
+// appstore
+$ fastlane ios appstore comments:<span class="hljs-string">"修复bugs"</span></code></pre>
+
+
+
+<h3 id="android打包脚本"><a href="https://developer.android.com/studio/build/building-cmdline.html#ReleaseMode">Android打包脚本</a></h3>
+
+<ul>
+<li>配置文件 <br>
+<ul><li>release-signing.properties</li>
+<li>sign.keystore</li></ul></li>
+<li>打包</li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ ./gradlew assembleRelease</code></pre>
+
+
+
+<h3 id="自动打包平台">自动打包平台</h3>
+
+
+
+<h1 id="cordova-plugin-travel-1"><a href="http://iss110301000305/summary/cordova-plugin-travel.git">cordova-plugin-travel</a></h1>
+
+
+
+<h3 id="使用方式">使用方式</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">if</span>(window[<span class="hljs-string">'travel'</span>])
+{
+    <span class="hljs-comment">// 查看大图</span>
+    <span class="hljs-keyword">let</span> index = <span class="hljs-string">"2"</span>; <span class="hljs-comment">// 默认显示第几张图片,index从0开始</span>
+    <span class="hljs-keyword">let</span> imgList = [index, <span class="hljs-string">"http://1.png"</span>, <span class="hljs-string">"http://1.png"</span>, <span class="hljs-string">"http://1.png"</span>];
+    window[<span class="hljs-string">'travel'</span>].showImages(imgList);
+
+    <span class="hljs-comment">// Android退出App</span>
+    window[<span class="hljs-string">'travel'</span>].exitApp();
+
+    <span class="hljs-comment">// Android检查版本</span>
+    window[<span class="hljs-string">'travel'</span>].updateVersion();
+}</code></pre>
+
+<h3 id="注意事项">注意事项</h3>
+
+<blockquote>
+  <p>1）<code>Android Plugin</code>中，为做到plugin通用，不要在java代码中直接访问<code>R.java</code>中的资源，统一借助<code>RUtil.java</code>处理 <br>
+  2）<code>Android Plugin</code>中，为避免与项目中的资源文件重名，plugin中所有资源文件(id/color/style/drawable/layout)统一以<code>plugin_</code>作为前缀 <br>
+  3）新增加文件时，需要配置<code>plugin.xml</code></p>
+</blockquote>
+
+<h1 id="其它">其它</h1>
+
+<h3 id="开发工具">开发工具</h3>
+
+<ul>
+<li>WebStorem</li>
+<li>Sublime</li>
+</ul>
+
+<h3 id="网络工具">网络工具</h3>
+
+<ul>
+<li>Postman / Charles</li>
+<li>Shadowsocks</li>
+</ul>
+
+<h3 id="版本工具">版本工具</h3>
+
+<ul>
+<li><a href="https://troyz.github.io/nodeppt/git.htm">Git</a></li>
+</ul></div></body>
+</html>
