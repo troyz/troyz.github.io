@@ -1,0 +1,232 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 2017年2月12日
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>移动H5分享 - By 张学东</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.colors.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>移动H5分享</h1>
+<h3>分享者：张学东</h3>
+
+</article></section></slide>
+<slide class="slide" data-transition="glue"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>大纲</h1>
+<ul class="bounceIn">
+<li>背景介绍</li>
+<li>演示 App</li>
+<li>架构</li>
+<li>helloworld</li>
+<li>最佳实践</li>
+<li>打包平台</li>
+<li>下一步计划</li>
+<li>文档</li>
+<li>QA</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" data-transition="pulse"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>背景介绍</h1>
+<ul class="bounceIn">
+<li>内部的<ul class="rollIn">
+<li>Android-iOS 两套代码</li>
+<li>资源利用率低</li>
+</ul>
+</li>
+<li>外部的<ul>
+<li>前端技术的发展</li>
+<li>React/Weex/Vue/小程序</li>
+</ul>
+</li>
+<li>目标<ul>
+<li>充分利用资源</li>
+<li>紧跟技术前沿</li>
+<li>提升团队能力</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>演示App</h1>
+<ul>
+<li>H5 演示</li>
+<li>Native App 演示</li>
+</ul>
+<h1><img src="https://www.pgyer.com/app/qrcode/QinYanTravel" alt="Native App下载地址"></h1>
+<blockquote>
+<p>温馨提示：如果你无法下载<code>iOS</code>的App，请将你设备的<a href="https://www.pgyer.com/udid" target="_blank"><code>UDID</code></a>发送给我</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide" data-transition="vertical3d"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>ionic架构</h1>
+<img src="http://upload-images.jianshu.io/upload_images/267318-472279e7b8cea006.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt="ionic 架构">
+
+</article></section></slide>
+<slide class="slide" data-transition="vertical3d"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>helloworld</h1>
+<pre><code class="bash">// 安装环境
+$ npm install -g ionic cordova
+
+// 创建ionic项目
+$ ionic start helloworld --v2
+
+// 安装第三方库
+$ npm install
+
+// 浏览器调试
+$ ionic serve
+
+// 添加 iOS 支持
+$ ionic platform add ios@4.3.0
+
+// 编译iOS工程
+$ ionic build ios --prod --release
+
+// 添加 Android 支持
+$ ionic platform add android@6.1.0
+
+// 编译Android工程
+$ ionic build android --prod --release
+
+// 添加native插件
+$ ionic plugin add https://github.com/charleyw/cordova-plugin-alipay.git
+</code></pre>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>最佳实践</h1>
+<ul class="bounceIn">
+<li><a href="http://www.w3cplus.com/css3/a-guide-to-flexbox-new.html" target="_blank">flexbox</a>布局</li>
+<li>移动设备click事件延时</li>
+<li>css中<code>calc</code>函数</li>
+<li>性能优化<ul>
+<li>ionic build ios <code>--prod --release</code></li>
+<li>禁用<code>source map</code></li>
+<li>js延时加载 <code>async defer</code></li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" data-transition="stick"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>打包平台</h1>
+<ul class="rollIn">
+<li><code>CI</code></li>
+<li>Master 与 Slave</li>
+<li>配置文件<ul>
+<li><a href="http://iss110301000305/tree/QYTravelV3.git/master/auto-build-script" target="_blank">auto-build-script</a></li>
+<li><a href="http://iss110301000305/tree/QYTravelV3.git/master/hooks" target="_blank">hooks</a></li>
+<li><a href="http://iss110301000305/blob/QYTravelV3.git/master/config.xml#L37" target="_blank">config.xml</a></li>
+</ul>
+</li>
+<li>打包演示（Android）</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>下一步计划</h1>
+<ul class="bounceIn">
+<li>PWA</li>
+<li>React</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>文档</h1>
+<ul class="bounceIn">
+<li><a href="http://www.jianshu.com/p/e8e9ea8b1f5f" target="_blank">H5分享系列一----ionic/Angular框架概览</a></li>
+<li><a href="http://www.jianshu.com/p/3b9e8df93222" target="_blank">H5分享系列二----ionic2填坑</a></li>
+<li><a href="http://www.jianshu.com/p/c20843ac1c76" target="_blank">H5分享系列三----ionic+flexbox+打包</a></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>谢谢大家!</h1>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'zoomin',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+
+
+<!--placeholder-->
+</body>
+</html>
