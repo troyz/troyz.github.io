@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React Native Guide</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><p><div class="toc">
+<ul>
+<li><a href="#react">React</a><ul>
+<li><ul>
+<li><a href="#jsx">JSX</a></li>
+<li><a href="#props-and-state">props and state</a></li>
+<li><a href="#生命周期">生命周期</a></li>
+<li><a href="#event">event</a></li>
+<li><a href="#bind">bind</a></li>
+<li><a href="#条件渲染">条件渲染</a></li>
+<li><a href="#list-渲染">list 渲染</a></li>
+<li><a href="#refs">refs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#react-native">React Native</a><ul>
+<li><ul>
+<li><a href="#工作原理">工作原理</a></li>
+<li><a href="#install">install</a></li>
+<li><a href="#vscode-插件">VSCode 插件</a></li>
+<li><a href="#flexbox">flexbox</a></li>
+<li><a href="#javascript-environment">JavaScript Environment</a></li>
+<li><a href="#animation">Animation</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#ui-components">UI Components</a></li>
+<li><a href="#native-module">Native Module</a></li>
+<li><a href="#native-ui-component">Native UI Component</a></li>
+<li><a href="#参数传递">参数传递</a></li>
+<li><a href="#开发调试">开发调试</a></li>
+<li><a href="#release-打包">Release 打包</a></li>
+<li><a href="#integration-with-existing-app">Integration with existing app</a></li>
+<li><a href="#自动打包">自动打包</a></li>
+<li><a href="#热更新">热更新</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</p>
+
+
+
+<h1 id="react">React</h1>
+
+
+
+<h3 id="jsx">JSX</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">name = <span class="hljs-string">"name"</span>
+render()
+{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h5</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">{this.name}</span>&gt;</span>Hello world!<span class="hljs-tag">&lt;/<span class="hljs-title">h5</span>&gt;</span>
+    );
+}</span></code></pre>
+
+
+
+<h3 id="props-and-state">props and state</h3>
+
+<ul>
+<li><code>props</code>不可变</li>
+<li><code>props</code>接收父控件传递的参数</li>
+<li><code>state</code>可变</li>
+<li><code>setState</code>会重新<code>render</code>页面</li>
+</ul>
+
+
+
+<h3 id="生命周期">生命周期</h3>
+
+<ul>
+<li><code>componentDidMount</code>：页面加载完毕</li>
+<li><code>componentWillUnmount</code>：页面即将销毁</li>
+<li><code>render</code>：渲染ui</li>
+</ul>
+
+
+
+<h3 id="event">event</h3>
+
+
+
+<pre class="prettyprint"><code class="language-html hljs "><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-value">{this.handleClick}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-value">{()=</span>&gt;</span>{
+    this.handleClick(item)
+    }}&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span></code></pre>
+
+
+
+<h3 id="bind">bind</h3>
+
+
+
+<h3 id="条件渲染">条件渲染</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">render()
+{
+    <span class="hljs-keyword">return</span> (
+        <span class="hljs-keyword">this</span>.isLogined
+        ?
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">HomeScreen</span>/&gt;</span>
+        :
+        <span class="hljs-tag">&lt;<span class="hljs-title">LoginScreen</span>/&gt;</span>
+    );
+}
+
+render()
+{
+    return (
+        !this.isTopPage
+        ?
+        <span class="hljs-tag">&lt;<span class="hljs-title">Image</span> <span class="hljs-attribute">source</span>=<span class="hljs-value">{require('back.png')}</span>/&gt;</span>
+        :
+        Null
+    );
+}</span></code></pre>
+
+
+
+<h3 id="list-渲染">list 渲染</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">render()
+{
+    <span class="hljs-keyword">const</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+        {numbers.map((value, index) =&gt; <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+            {value}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        )}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    );
+}</span></code></pre>
+
+
+
+<h3 id="refs">refs</h3>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">render()
+{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">{(input)</span> =&gt;</span> {this.input = input;}}/&gt;
+    );
+}</span></code></pre>
+
+
+
+<h1 id="react-native">React Native</h1>
+
+
+
+<h3 id="工作原理">工作原理</h3>
+
+
+
+<h3 id="install">install</h3>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs "><span class="hljs-comment"># 全局安装cli</span>
+$ npm install -g react-native-cli
+
+<span class="hljs-comment"># 初始化项目</span>
+$ react-native init ProjectName
+
+<span class="hljs-comment"># 模拟器运行</span>
+$ react-native run-ios</code></pre>
+
+
+
+<h3 id="vscode-插件">VSCode 插件</h3>
+
+<ul>
+<li><code>React Native Tools</code></li>
+<li>path</li>
+<li>tab 4 space</li>
+</ul>
+
+
+
+<h3 id="flexbox">flexbox</h3>
+
+<ul>
+<li>默认</li>
+<li>camel-case</li>
+</ul>
+
+
+
+<h3 id="javascript-environment">JavaScript Environment</h3>
+
+<ul>
+<li>no window</li>
+</ul>
+
+<hr>
+
+<hr>
+
+
+
+<h3 id="animation">Animation</h3>
+
+<ul>
+<li>例子</li>
+</ul>
+
+
+
+<h3 id="images">Images</h3>
+
+<ul>
+<li>工程内部图片用<code>require</code>，编译时会自动获取尺寸信息</li>
+<li>网络图片用<code>uri</code>，手动指定<code>width</code>、<code>height</code></li>
+</ul>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">&lt;Image source={<span class="hljs-built_in">require</span>(<span class="hljs-string">'./img/check.png'</span>)} /&gt;
+
+<span class="hljs-keyword">var</span> icon = <span class="hljs-keyword">this</span>.props.active ? <span class="hljs-string">'my-icon-active'</span> : <span class="hljs-string">'my-icon-inactive'</span>;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Image</span> <span class="hljs-attribute">source</span>=<span class="hljs-value">{require('.</span>/' + <span class="hljs-attribute">icon</span> + '<span class="hljs-attribute">.png</span>')} /&gt;</span>
+
+var icon = this.props.active ? require('./my-icon-active.png') : require('./my-icon-inactive.png');
+<span class="hljs-tag">&lt;<span class="hljs-title">Image</span> <span class="hljs-attribute">source</span>=<span class="hljs-value">{icon}</span> /&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">Image</span> <span class="hljs-attribute">source</span>=<span class="hljs-value">{{uri:</span> '<span class="hljs-attribute">https:</span>//<span class="hljs-attribute">facebook.github.io</span>/<span class="hljs-attribute">react</span>/<span class="hljs-attribute">img</span>/<span class="hljs-attribute">logo_og.png</span>'}}
+       <span class="hljs-attribute">style</span>=<span class="hljs-value">{{width:</span> <span class="hljs-attribute">400</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">400</span>}} /&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">Image</span> <span class="hljs-attribute">source</span>=<span class="hljs-value">{{uri:</span> '<span class="hljs-attribute">https:</span>//<span class="hljs-attribute">facebook.github.io</span>/<span class="hljs-attribute">react</span>/<span class="hljs-attribute">img</span>/<span class="hljs-attribute">logo_og.png</span>'}} /&gt;</span></span></code></pre>
+
+
+
+<h3 id="ui-components">UI Components</h3>
+
+<ul>
+<li>no html tags</li>
+</ul>
+
+
+
+<h3 id="native-module">Native Module</h3>
+
+<ul>
+<li><code>RCTBridgeModule</code>协议</li>
+<li>RCT_EXPORT_MODULE 、RCT_EXPORT_METHOD、methodQueue、、、</li>
+</ul>
+
+
+
+<h3 id="native-ui-component">Native UI Component</h3>
+
+<ul>
+<li><a href="https://facebook.github.io/react-native/docs/native-components-ios.html">例子</a></li>
+</ul>
+
+
+
+<h3 id="参数传递">参数传递</h3>
+
+<ul>
+<li><code>props</code>，父子页面</li>
+<li><code>NativeEventEmitter</code>  ， js 与 native</li>
+<li><code>RCTDeviceEventEmitter</code>，js</li>
+<li><code>global</code></li>
+</ul>
+
+
+
+<h3 id="开发调试">开发调试</h3>
+
+<ul>
+<li><code>React Developer Tools</code></li>
+<li>模拟器快捷键</li>
+<li>调试</li>
+</ul>
+
+
+
+<h3 id="release-打包">Release 打包</h3>
+
+<ul>
+<li>bundle</li>
+<li>加载入口</li>
+</ul>
+
+
+
+<h3 id="integration-with-existing-app">Integration with existing app</h3>
+
+<ul>
+<li>Podfile</li>
+<li>打包时指定<code>Info.plist</code>位置</li>
+</ul>
+
+
+
+<h3 id="自动打包">自动打包</h3>
+
+
+
+<h3 id="热更新">热更新</h3>
+
+<ul>
+<li><a href="https://github.com/lisong/code-push-server">code push server</a></li>
+<li><a href="https://github.com/Microsoft/react-native-code-push">code push</a></li>
+</ul>
+
+<blockquote>
+  <p>参考文档 <br>
+  <a href="https://facebook.github.io/react/">React</a> 、<a href="https://facebook.github.io/react-native/">React Native</a>、<a href="http://reactnative.cn/">react native 中文网</a>、<a href="https://hulufei.gitbooks.io/react-tutorial/content/">React 入门</a></p>
+</blockquote></div></body>
+</html>
