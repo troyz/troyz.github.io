@@ -53,7 +53,7 @@ function getClassName(obj)
     }
 }
 
-function convertJson2Model(str, nest = false)
+function convertJson2Model(str, nest)
 {
     if(!str)
     {
