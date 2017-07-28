@@ -71,14 +71,14 @@
                 {
                     return;
                 }
-                let obj = JSON.parse(str);
+                var obj = JSON.parse(str);
                 if(!obj)
                 {
                     return;
                 }
                 editor.set(obj);
 
-                let modelStr = convertJson2Model(obj);
+                var modelStr = convertJson2Model(obj);
                 if(modelStr)
                 {
                     document.getElementById('model_textarea').innerText = modelStr;

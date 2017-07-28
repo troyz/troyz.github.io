@@ -1,5 +1,5 @@
-let classMap = {};
-let _index = 1;
+var classMap = {};
+var _index = 1;
 
 function parseClassMap(obj)
 {
@@ -9,13 +9,13 @@ function parseClassMap(obj)
     }
     classMap["Class_" + _index] = obj;
     _index++;
-    for(let key in obj)
+    for(var key in obj)
     {
         if(key == null || key == undefined)
         {
             continue;
         }
-        let val = obj[key];
+        var val = obj[key];
         if(val == null || val == undefined)
         {
             continue;
@@ -36,15 +36,15 @@ function parseClassMap(obj)
 
 function getClassName(obj)
 {
-    for(let key in classMap)
+    for(var key in classMap)
     {
         if(classMap[key] == obj)
         {
             return key;
         }
     }
-    let str = JSON.stringify(obj);
-    for(let key in classMap)
+    var str = JSON.stringify(obj);
+    for(var key in classMap)
     {
         if(JSON.stringify(classMap[key]) == str)
         {
@@ -59,10 +59,10 @@ function convertJson2Model(str, nest = false)
     {
         return "";
     }
-    let nextLine = "\r\n";
-    let tabs = "    ";
+    var nextLine = "\r\n";
+    var tabs = "    ";
 
-    let json = str;
+    var json = str;
     if(typeof str == "string")
     {
         json = JSON.parse(str);
@@ -73,29 +73,29 @@ function convertJson2Model(str, nest = false)
         classMap = {};
         parseClassMap(json);
     }
-    let results = "export class " + getClassName(json) + nextLine + "{";
+    var results = "export class " + getClassName(json) + nextLine + "{";
 
-    let objList = [];
-    let nestObj = {};
-    for(let _key in json)
+    var objList = [];
+    var nestObj = {};
+    for(var _key in json)
     {
         if(_key == null || _key == undefined)
         {
             continue;
         }
-        let _val = json[_key];
+        var _val = json[_key];
         if(_val == null || _val == undefined)
         {
             continue;
         }
-        let _type = typeof _val;
+        var _type = typeof _val;
         if(_type == "object")
         {
             if(Array.isArray(_val))
             {
                 if(_val.length > 0)
                 {
-                    let className = getClassName(_val[0]);
+                    var className = getClassName(_val[0]);
                     nestObj[_key] = className;
                     results += nextLine + tabs + _key + ": Array<" + className + ">;";
                     objList.push(_val[0]);
@@ -103,7 +103,7 @@ function convertJson2Model(str, nest = false)
             }
             else
             {
-                let className = getClassName(_val);
+                var className = getClassName(_val);
                 nestObj[_key] = className;
                 results += nextLine + tabs + _key + ": " + className + ";";
                 objList.push(_val);
@@ -118,7 +118,7 @@ function convertJson2Model(str, nest = false)
     {
         results += nextLine + tabs + "nestedPropertyMap()" + nextLine + tabs + "{";
         results += nextLine + tabs + tabs + "return {";
-        for(let _key in nestObj)
+        for(var _key in nestObj)
         {
             results += nextLine + tabs + tabs + tabs + _key + ": " + nestObj[_key] + ",";
         }
@@ -127,7 +127,7 @@ function convertJson2Model(str, nest = false)
     results += nextLine + "}" + nextLine;
     if(objList.length > 0)
     {
-        for(let i = 0; i < objList.length; i++)
+        for(var i = 0; i < objList.length; i++)
         {
             results += convertJson2Model(objList[i], true);
         }
@@ -135,7 +135,7 @@ function convertJson2Model(str, nest = false)
     return results;
 }
 
-// let a = {
+// var a = {
 // 	"status": "0",
 // 	"message": "结果返回成功！",
 // 	"total": 1,
@@ -163,5 +163,5 @@ function convertJson2Model(str, nest = false)
 // 	}]
 // };
 
-// let r = convertJson2Model(a);
+// var r = convertJson2Model(a);
 // console.log(r);
