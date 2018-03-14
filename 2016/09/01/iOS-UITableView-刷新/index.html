@@ -85,11 +85,13 @@
 
 
 <meta name="description" content="UITableView常用的刷新方式123456789101112// UITableView.h// 方式1：刷新整个table- (void)reloadData;// 方式2：刷新指定的cells- (void)reloadRowsAtIndexPaths:(NSArray&amp;lt;NSIndexPath *&amp;gt; *)indexPaths               withRowAnim">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS UITableView 刷新">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS-UITableView-刷新/index.html">
 <meta property="og:site_name" content="Troy的小站">
 <meta property="og:description" content="UITableView常用的刷新方式123456789101112// UITableView.h// 方式1：刷新整个table- (void)reloadData;// 方式2：刷新指定的cells- (void)reloadRowsAtIndexPaths:(NSArray&amp;lt;NSIndexPath *&amp;gt; *)indexPaths               withRowAnim">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-09-01T07:17:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS UITableView 刷新">
@@ -293,7 +295,7 @@
       
 
       
-        <h1 id="UITableView常用的刷新方式"><a href="#UITableView常用的刷新方式" class="headerlink" title="UITableView常用的刷新方式"></a>UITableView常用的刷新方式</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// UITableView.h</span></div><div class="line"></div><div class="line"><span class="comment">// 方式1：刷新整个table</span></div><div class="line">- (<span class="keyword">void</span>)reloadData;</div><div class="line"></div><div class="line"><span class="comment">// 方式2：刷新指定的cells</span></div><div class="line">- (<span class="keyword">void</span>)reloadRowsAtIndexPaths:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSIndexPath</span> *&gt; *)indexPaths </div><div class="line">              withRowAnimation:(<span class="built_in">UITableViewRowAnimation</span>)animation;</div><div class="line"></div><div class="line"><span class="comment">// 方式3：多个insert/delete批量事务处理</span></div><div class="line">- (<span class="keyword">void</span>)beginUpdates;   <span class="comment">// allow multiple insert/delete of rows and sections to be animated simultaneously. Nestable</span></div><div class="line">- (<span class="keyword">void</span>)endUpdates;     <span class="comment">// only call insert/delete/reload calls or change the editing state inside an update block.  otherwise things like row count, etc. may be invalid.</span></div></pre></td></tr></table></figure>
+        <h1 id="UITableView常用的刷新方式"><a href="#UITableView常用的刷新方式" class="headerlink" title="UITableView常用的刷新方式"></a>UITableView常用的刷新方式</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UITableView.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式1：刷新整个table</span></span><br><span class="line">- (<span class="keyword">void</span>)reloadData;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式2：刷新指定的cells</span></span><br><span class="line">- (<span class="keyword">void</span>)reloadRowsAtIndexPaths:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSIndexPath</span> *&gt; *)indexPaths </span><br><span class="line">              withRowAnimation:(<span class="built_in">UITableViewRowAnimation</span>)animation;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式3：多个insert/delete批量事务处理</span></span><br><span class="line">- (<span class="keyword">void</span>)beginUpdates;   <span class="comment">// allow multiple insert/delete of rows and sections to be animated simultaneously. Nestable</span></span><br><span class="line">- (<span class="keyword">void</span>)endUpdates;     <span class="comment">// only call insert/delete/reload calls or change the editing state inside an update block.  otherwise things like row count, etc. may be invalid.</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>方式1</code>会刷新整个<code>table</code>，一般情况下不建议使用</li>
 <li>当<code>cell</code>显示的数据需要发生变化时，通常采用<code>方式2</code>：只刷新指定的<code>cell(s)</code>，对<code>table</code>中的其它<code>cell</code>不会产生影响。</li>
@@ -307,7 +309,7 @@
 <li><em>以上3类信息的数据由服务端提供了3个不同的接口调用。</em></li>
 </ul>
 <p>要将这个cell的数据显示完全，需要进行3次接口调用，如果按照<code>方式2</code>则需要将<code>cell</code>刷新3次！！！如下我将介绍一种<code>cell</code>局部刷新的方式：</p>
-<h3 id="cell局部刷新"><a href="#cell局部刷新" class="headerlink" title="cell局部刷新"></a>cell局部刷新</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 更新用户基本信息</span></div><div class="line">[cell updateBasicView];</div><div class="line">[tableView beginUpdate];</div><div class="line">[tableView endUpdate];</div><div class="line"></div><div class="line"><span class="comment">// 更新用户粉丝数量</span></div><div class="line">[cell updateFansView];</div><div class="line">[tableView beginUpdate];</div><div class="line">[tableView endUpdate];</div><div class="line"></div><div class="line"><span class="comment">// 更新用户关注数量</span></div><div class="line">[cell updateFollowView];</div><div class="line">[tableView beginUpdate];</div><div class="line">[tableView endUpdate];</div></pre></td></tr></table></figure>
+<h3 id="cell局部刷新"><a href="#cell局部刷新" class="headerlink" title="cell局部刷新"></a>cell局部刷新</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新用户基本信息</span></span><br><span class="line">[cell updateBasicView];</span><br><span class="line">[tableView beginUpdate];</span><br><span class="line">[tableView endUpdate];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新用户粉丝数量</span></span><br><span class="line">[cell updateFansView];</span><br><span class="line">[tableView beginUpdate];</span><br><span class="line">[tableView endUpdate];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新用户关注数量</span></span><br><span class="line">[cell updateFollowView];</span><br><span class="line">[tableView beginUpdate];</span><br><span class="line">[tableView endUpdate];</span><br></pre></td></tr></table></figure>
 <p>这样<code>cell</code>就做到了局部刷新，是不是很简单？！</p>
 
       
@@ -499,7 +501,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

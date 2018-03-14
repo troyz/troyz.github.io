@@ -84,27 +84,20 @@
 
 
 
-<meta name="description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。
-
-
-配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
+<meta name="description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。   配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS Smart App Banners">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS-Smart-App-Banners/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。
-
-
-配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
+<meta property="og:description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。   配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-3fdaf39a0df621e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-fdbaa7336026fa6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-09-01T07:01:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Smart App Banners">
-<meta name="twitter:description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。
-
-
-配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
+<meta name="twitter:description" content="简介在iOS6之后，Safari增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；如果没有安装App，则Banner显示App的基本信息，点击后进入在App Store下载页面；如果已经安装了App，则Banner显示App的基本信息，点击打开App。   配置只需要在页面中配置一下：1&amp;lt;meta name=&quot;apple-itunes-app&quot; cont">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-3fdaf39a0df621e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -308,10 +301,10 @@
         <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在<code>iOS6</code>之后，<code>Safari</code>增加了一项目功能：可以检测手机是否安装了某个App，并且在页面顶部显示一个Banner；<br>如果没有安装App，则Banner显示App的基本信息，点击后进入在<code>App Store</code>下载页面；<br>如果已经安装了App，则Banner显示App的基本信息，点击打开App。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-3fdaf39a0df621e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="未安装App时Banner"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-fdbaa7336026fa6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="已安装时Banner"></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>只需要在页面中配置一下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-itunes-app"</span> <span class="attr">content</span>=<span class="string">"app-id=xxxxxxx"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
-<p>当然，也可以添加参数，点击打开App的时候，会将参数传递给App<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-itunes-app"</span> <span class="attr">content</span>=<span class="string">"app-id=xxxxxxx, affiliate-data=myAffiliateData, app-argument=myURL"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>只需要在页面中配置一下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-itunes-app"</span> <span class="attr">content</span>=<span class="string">"app-id=xxxxxxx"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当然，也可以添加参数，点击打开App的时候，会将参数传递给App<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-itunes-app"</span> <span class="attr">content</span>=<span class="string">"app-id=xxxxxxx, affiliate-data=myAffiliateData, app-argument=myURL"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>参考：<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html" target="_blank" rel="external">Promoting Apps with Smart App Banners</a></p>
+<p>参考：<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html" target="_blank" rel="noopener">Promoting Apps with Smart App Banners</a></p>
 </blockquote>
 
       
@@ -503,7 +496,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

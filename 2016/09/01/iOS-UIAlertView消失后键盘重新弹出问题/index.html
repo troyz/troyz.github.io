@@ -84,49 +84,18 @@
 
 
 
-<meta name="description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，
-
-1.点击确定按钮后-&amp;gt;
-2.代码隐藏键盘-&amp;gt;
-3.提交数据到服务端-&amp;gt;
-4.服务端返回结果-&amp;gt;
-5.弹出UIAlertView呈现结果-&amp;gt;
-6.用户点击UIAlertView中的按钮-&amp;gt;
-7.Dismiss UIAlertView-&amp;gt;
-8.键盘诡异的又自动弹出来了
-
-简单来说是过程2到过程7的时">
+<meta name="description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，  1.点击确定按钮后-&amp;gt; 2.代码隐藏键盘-&amp;gt; 3.提交数据到服务端-&amp;gt; 4.服务端返回结果-&amp;gt; 5.弹出UIAlertView呈现结果-&amp;gt; 6.用户点击UIAlertView中的按钮-&amp;gt; 7.Dismiss UIAlertView-&amp;gt; 8.键盘诡异的又自动弹出来了  简单来说是过程2到过程7的时">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS UIAlertView消失后键盘重新弹出问题">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS-UIAlertView消失后键盘重新弹出问题/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，
-
-1.点击确定按钮后-&amp;gt;
-2.代码隐藏键盘-&amp;gt;
-3.提交数据到服务端-&amp;gt;
-4.服务端返回结果-&amp;gt;
-5.弹出UIAlertView呈现结果-&amp;gt;
-6.用户点击UIAlertView中的按钮-&amp;gt;
-7.Dismiss UIAlertView-&amp;gt;
-8.键盘诡异的又自动弹出来了
-
-简单来说是过程2到过程7的时">
+<meta property="og:description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，  1.点击确定按钮后-&amp;gt; 2.代码隐藏键盘-&amp;gt; 3.提交数据到服务端-&amp;gt; 4.服务端返回结果-&amp;gt; 5.弹出UIAlertView呈现结果-&amp;gt; 6.用户点击UIAlertView中的按钮-&amp;gt; 7.Dismiss UIAlertView-&amp;gt; 8.键盘诡异的又自动弹出来了  简单来说是过程2到过程7的时">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-09-01T07:18:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS UIAlertView消失后键盘重新弹出问题">
-<meta name="twitter:description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，
-
-1.点击确定按钮后-&amp;gt;
-2.代码隐藏键盘-&amp;gt;
-3.提交数据到服务端-&amp;gt;
-4.服务端返回结果-&amp;gt;
-5.弹出UIAlertView呈现结果-&amp;gt;
-6.用户点击UIAlertView中的按钮-&amp;gt;
-7.Dismiss UIAlertView-&amp;gt;
-8.键盘诡异的又自动弹出来了
-
-简单来说是过程2到过程7的时">
+<meta name="twitter:description" content="描述最近在项目中发现一个小问题：手机当前界面有一些输入框，  1.点击确定按钮后-&amp;gt; 2.代码隐藏键盘-&amp;gt; 3.提交数据到服务端-&amp;gt; 4.服务端返回结果-&amp;gt; 5.弹出UIAlertView呈现结果-&amp;gt; 6.用户点击UIAlertView中的按钮-&amp;gt; 7.Dismiss UIAlertView-&amp;gt; 8.键盘诡异的又自动弹出来了  简单来说是过程2到过程7的时">
 
 
 
@@ -338,10 +307,10 @@
 <li>8.<strong>键盘诡异的又自动弹出来了</strong></li>
 </ul>
 <p>简单来说是<strong>过程2到过程7的时间太过短暂</strong>造成的，无语了~~。</p>
-<h1 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h1><h2 id="iOS8"><a href="#iOS8" class="headerlink" title="iOS8+"></a>iOS8+</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">But since iOS 8, I suggest to use the UIAlertController instead of UIAlertView.</div></pre></td></tr></table></figure>
-<h2 id="继续用UIAlertView"><a href="#继续用UIAlertView" class="headerlink" title="继续用UIAlertView"></a>继续用UIAlertView</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// you must put around .6 second gap in hiding keyboard and presenting alert</span></div><div class="line"><span class="comment">// 隐藏键盘后延迟0.6秒弹出UIAlertView</span></div><div class="line">[YOUR_TEXT resignFirstResponder];</div><div class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">.6</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">      _alertVw = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@""</span> message:<span class="string">@"message."</span> delegate:<span class="keyword">self</span> cancelButtonTitle:<span class="string">@"Ok"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>];</div><div class="line">      [_alertVw show];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h1><h2 id="iOS8"><a href="#iOS8" class="headerlink" title="iOS8+"></a>iOS8+</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">But since iOS 8, I suggest to use the UIAlertController instead of UIAlertView.</span><br></pre></td></tr></table></figure>
+<h2 id="继续用UIAlertView"><a href="#继续用UIAlertView" class="headerlink" title="继续用UIAlertView"></a>继续用UIAlertView</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// you must put around .6 second gap in hiding keyboard and presenting alert</span></span><br><span class="line"><span class="comment">// 隐藏键盘后延迟0.6秒弹出UIAlertView</span></span><br><span class="line">[YOUR_TEXT resignFirstResponder];</span><br><span class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">.6</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">      _alertVw = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@""</span> message:<span class="string">@"message."</span> delegate:<span class="keyword">self</span> cancelButtonTitle:<span class="string">@"Ok"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>];</span><br><span class="line">      [_alertVw show];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参考 <a href="http://stackoverflow.com/questions/30498972/keyboard-will-appeared-automatically-in-ios-8-3-while-displaying-alertview-or-al" target="_blank" rel="external">Keyboard will appeared automatically in ios 8.3 while displaying alertview or alertcontroller</a></p>
+<p>参考 <a href="http://stackoverflow.com/questions/30498972/keyboard-will-appeared-automatically-in-ios-8-3-while-displaying-alertview-or-al" target="_blank" rel="noopener">Keyboard will appeared automatically in ios 8.3 while displaying alertview or alertcontroller</a></p>
 </blockquote>
 
       
@@ -533,7 +502,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

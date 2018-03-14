@@ -84,27 +84,20 @@
 
 
 
-<meta name="description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题
-There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;.
-解决方案：
-ResourceRules.plist: cannot read">
+<meta name="description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题 There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;. 解决方案： ResourceRules.plist: cannot read">
+<meta name="keywords" content="iOS,CI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins填坑">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/Jenkins填坑/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题
-There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;.
-解决方案：
-ResourceRules.plist: cannot read">
+<meta property="og:description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题 There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;. 解决方案： ResourceRules.plist: cannot read">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-c3dc0eb262074cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-880bd71f0c5fc034.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-09-01T07:00:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins填坑">
-<meta name="twitter:description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题
-There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;.
-解决方案：
-ResourceRules.plist: cannot read">
+<meta name="twitter:description" content="前言记录使用Jenkins打包iOS过程中所遇到的各种问题 There are no schemes in workspace12$ xcodebuild -list -workspace ***.xcworkspaceThere are no schemes in workspace &amp;quot;***&amp;quot;. 解决方案： ResourceRules.plist: cannot read">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-c3dc0eb262074cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -306,9 +299,9 @@ ResourceRules.plist: cannot read">
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录使用<code>Jenkins</code>打包<code>iOS</code>过程中所遇到的各种问题</p>
-<h3 id="There-are-no-schemes-in-workspace"><a href="#There-are-no-schemes-in-workspace" class="headerlink" title="There are no schemes in workspace"></a>There are no schemes in workspace</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ xcodebuild -list -workspace ***.xcworkspace</div><div class="line">There are no schemes in workspace &quot;***&quot;.</div></pre></td></tr></table></figure>
+<h3 id="There-are-no-schemes-in-workspace"><a href="#There-are-no-schemes-in-workspace" class="headerlink" title="There are no schemes in workspace"></a>There are no schemes in workspace</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xcodebuild -list -workspace ***.xcworkspace</span><br><span class="line">There are no schemes in workspace &quot;***&quot;.</span><br></pre></td></tr></table></figure>
 <p>解决方案：<br><img src="http://upload-images.jianshu.io/upload_images/267318-c3dc0eb262074cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="There are no schemes in workspace"></p>
-<h3 id="ResourceRules-plist-cannot-read-resources"><a href="#ResourceRules-plist-cannot-read-resources" class="headerlink" title="ResourceRules.plist: cannot read resources"></a>ResourceRules.plist: cannot read resources</h3><p>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(SDKROOT)/ResourceRules.plist</div></pre></td></tr></table></figure></p>
+<h3 id="ResourceRules-plist-cannot-read-resources"><a href="#ResourceRules-plist-cannot-read-resources" class="headerlink" title="ResourceRules.plist: cannot read resources"></a>ResourceRules.plist: cannot read resources</h3><p>解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(SDKROOT)/ResourceRules.plist</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-880bd71f0c5fc034.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ResourceRules.plist: cannot read resources"></p>
 
       
@@ -502,7 +495,7 @@ ResourceRules.plist: cannot read">
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

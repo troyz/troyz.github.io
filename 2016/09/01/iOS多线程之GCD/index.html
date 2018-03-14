@@ -84,73 +84,21 @@
 
 
 
-<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
-队列
-
-
-队列
-Api
-备注
-
-
-
-
-主队列（main queue）
-dispatch_get_main_queue()
-串行队列，可以操纵UI
-
-
-全局调度队列（Global Dispatch Queues）
-dispatch_get_global_queue()
-并行队列，按照执行优先级，分成4种global qu">
+<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations 队列   队列 Api 备注     主队列（main queue） dispatch_get_main_queue() 串行队列，可以操纵UI   全局调度队列（Global Dispatch Queues） dispatch_get_global_queue() 并行队列，按照执行优先级，分成4种global qu">
+<meta name="keywords" content="iOS,thread">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS多线程之GCD">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS多线程之GCD/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
-队列
-
-
-队列
-Api
-备注
-
-
-
-
-主队列（main queue）
-dispatch_get_main_queue()
-串行队列，可以操纵UI
-
-
-全局调度队列（Global Dispatch Queues）
-dispatch_get_global_queue()
-并行队列，按照执行优先级，分成4种global qu">
+<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations 队列   队列 Api 备注     主队列（main queue） dispatch_get_main_queue() 串行队列，可以操纵UI   全局调度队列（Global Dispatch Queues） dispatch_get_global_queue() 并行队列，按照执行优先级，分成4种global qu">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-a6708bac62b103a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-d299f587c599abc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-d3ead46676ea07c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-09-01T08:08:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多线程之GCD">
-<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations
-队列
-
-
-队列
-Api
-备注
-
-
-
-
-主队列（main queue）
-dispatch_get_main_queue()
-串行队列，可以操纵UI
-
-
-全局调度队列（Global Dispatch Queues）
-dispatch_get_global_queue()
-并行队列，按照执行优先级，分成4种global qu">
+<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之NSOperations 队列   队列 Api 备注     主队列（main queue） dispatch_get_main_queue() 串行队列，可以操纵UI   全局调度队列（Global Dispatch Queues） dispatch_get_global_queue() 并行队列，按照执行优先级，分成4种global qu">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-a6708bac62b103a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -351,7 +299,7 @@ dispatch_get_global_queue()
       
 
       
-        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="external">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/29cffaf280b8" target="_blank" rel="external">iOS多线程之NSOperations</a></p>
+        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="noopener">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/29cffaf280b8" target="_blank" rel="noopener">iOS多线程之NSOperations</a></p>
 <h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><table>
 <thead>
 <tr>
@@ -420,12 +368,12 @@ dispatch_get_global_queue()
 </tbody>
 </table>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-d3ead46676ea07c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="barrier执行模型"></p>
-<p><strong>注意：</strong><br>如果你调用 dispatch_sync 并放在你已运行着的当前<strong>串行</strong>队列。这会导致死锁，因为调用会一直等待直到 Block 完成，但 Block 不能完成（它甚至不会开始！），直到当前已经存在的任务完成，而当前任务无法完成！举个例子：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController1</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="comment">// dispatch_sync同步提交block到main队列（当前队列）并**等待**block执行完毕，而由于是串行队列，block需要等待当前任务执行完毕，双向等待造成死锁。</span></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"hello world"</span>);</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">// 下面这条NSLog不会被执行，因为线程已经死锁</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController2</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// 创建一个并行队列，，，，（*注意：*如果将*DISPATCH_QUEUE_CONCURRENT*修改成*DISPATCH_QUEUE_SERIAL*，即创建串行队列，就会发生死锁！！！）</span></div><div class="line">    <span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"abc"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"..1"</span>);</div><div class="line">        <span class="comment">// 因为是并行队列，下面的block不需要等待当前block执行完毕，就不会发生死锁。</span></div><div class="line">        <span class="built_in">dispatch_sync</span>(queue, ^&#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"..2"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br>如果你调用 dispatch_sync 并放在你已运行着的当前<strong>串行</strong>队列。这会导致死锁，因为调用会一直等待直到 Block 完成，但 Block 不能完成（它甚至不会开始！），直到当前已经存在的任务完成，而当前任务无法完成！举个例子：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController1</span></span></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// dispatch_sync同步提交block到main队列（当前队列）并**等待**block执行完毕，而由于是串行队列，block需要等待当前任务执行完毕，双向等待造成死锁。</span></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"hello world"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 下面这条NSLog不会被执行，因为线程已经死锁</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController2</span></span></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// 创建一个并行队列，，，，（*注意：*如果将*DISPATCH_QUEUE_CONCURRENT*修改成*DISPATCH_QUEUE_SERIAL*，即创建串行队列，就会发生死锁！！！）</span></span><br><span class="line">    <span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"abc"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"..1"</span>);</span><br><span class="line">        <span class="comment">// 因为是并行队列，下面的block不需要等待当前block执行完毕，就不会发生死锁。</span></span><br><span class="line">        <span class="built_in">dispatch_sync</span>(queue, ^&#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"..2"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"here"</span>);</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <h3 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h3><blockquote>
 <p>dispatch_once() 以线程安全的方式执行且仅执行其代码块一次。试图访问临界区（即传递给 dispatch_once 的代码）的不同的线程会在临界区已有一个线程的情况下被阻塞，直到临界区完成为止。</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">User</span></span></div><div class="line">+ (<span class="keyword">instancetype</span>)sharedUser</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> User *instance = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        instance = [[User alloc] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">User</span></span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedUser</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> User *instance = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        instance = [[User alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <h3 id="调度组"><a href="#调度组" class="headerlink" title="调度组"></a>调度组</h3><p>Dispatch Group 会在整个组的任务都完成时通知你。这些任务可以是同步的，也可以是异步的，即便在不同的队列也行。而且在整个组的任务都完成时，Dispatch Group 可以用同步的或者异步的方式通知你。</p>
 <table>
 <thead>
@@ -481,7 +429,7 @@ dispatch_get_global_queue()
 </tr>
 </tbody>
 </table>
-<p>多图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">dispatch_group_t group = dispatch_group_create();</div><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"test"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"http://a/%zd.png"</span>, i]];</div><div class="line">        <span class="comment">// 表示block进入group</span></div><div class="line">        dispatch_group_enter(group);</div><div class="line">        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">            <span class="comment">// 表示block执行完成</span></div><div class="line">            dispatch_group_leave(group);</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 设置等待3秒钟</span></div><div class="line">    dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span>  * <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line">    <span class="keyword">if</span>(dispatch_group_wait(group, timeoutTime))</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"图片下载超时"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"所有图片都下载完成"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>多图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">dispatch_group_t group = dispatch_group_create();</span><br><span class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"test"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"http://a/%zd.png"</span>, i]];</span><br><span class="line">        <span class="comment">// 表示block进入group</span></span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">            <span class="comment">// 表示block执行完成</span></span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置等待3秒钟</span></span><br><span class="line">    dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span>  * <span class="built_in">NSEC_PER_SEC</span>));</span><br><span class="line">    <span class="keyword">if</span>(dispatch_group_wait(group, timeoutTime))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"图片下载超时"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"所有图片都下载完成"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>信号量让你控制多个消费者对有限数量资源的访问<br>原则：当信号量小于等于0时，<code>dispatch_semaphore_wait</code>会阻塞线程，当<code>dispatch_semaphore_signal</code>时会让信号量加1，如果这时信号量大于0，则唤醒阻塞的线程。</p>
 <table>
 <thead>
@@ -505,8 +453,8 @@ dispatch_get_global_queue()
 </tr>
 </tbody>
 </table>
-<p>图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建信号量，并且初始化为0</span></div><div class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(<span class="number">0</span>);</div><div class="line"><span class="comment">// 下载图片</span></div><div class="line">[[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://a/b.png"</span>] options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</div><div class="line">    <span class="comment">// 设置信号量+1，此时信号量大于0，会唤醒等待的线程。</span></div><div class="line">    dispatch_semaphore_signal(semaphore);</div><div class="line">&#125;];</div><div class="line"><span class="comment">// 设置等待3秒钟</span></div><div class="line">dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span> \\* <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line"><span class="comment">// 此时线程会阻塞，只到图片下载完成或者等待超时</span></div><div class="line"><span class="keyword">if</span>(dispatch_semaphore_wait(semaphore, timeoutTime))</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"等待超时"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"图片下载完毕"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="http://www.cocoachina.com/industry/20140428/8248.html" target="_blank" rel="external">GCD 深入理解（一）</a><br><a href="http://www.cocoachina.com/industry/20140515/8433.html" target="_blank" rel="external">GCD 深入理解（二）</a></p>
+<p>图片下载示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建信号量，并且初始化为0</span></span><br><span class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// 下载图片</span></span><br><span class="line">[[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://a/b.png"</span>] options:<span class="number">0</span> progress:<span class="literal">nil</span> completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error, <span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">    <span class="comment">// 设置信号量+1，此时信号量大于0，会唤醒等待的线程。</span></span><br><span class="line">    dispatch_semaphore_signal(semaphore);</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// 设置等待3秒钟</span></span><br><span class="line">dispatch_time_t timeoutTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">3</span> \\* <span class="built_in">NSEC_PER_SEC</span>));</span><br><span class="line"><span class="comment">// 此时线程会阻塞，只到图片下载完成或者等待超时</span></span><br><span class="line"><span class="keyword">if</span>(dispatch_semaphore_wait(semaphore, timeoutTime))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"等待超时"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"图片下载完毕"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="http://www.cocoachina.com/industry/20140428/8248.html" target="_blank" rel="noopener">GCD 深入理解（一）</a><br><a href="http://www.cocoachina.com/industry/20140515/8433.html" target="_blank" rel="noopener">GCD 深入理解（二）</a></p>
 
       
     </div>
@@ -699,7 +647,7 @@ dispatch_get_global_queue()
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

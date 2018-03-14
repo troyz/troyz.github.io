@@ -84,49 +84,18 @@
 
 
 
-<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
-NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
-
-采用面向对象的方式
-任务、队列可以被cancel/suspend
-NSOperation(任务)之间可以添加依赖(dependency)
-
-NSOperationQueue（队列）
-
-
-Api
-备注">
+<meta name="description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：  采用面向对象的方式 任务、队列可以被cancel/suspend NSOperation(任务)之间可以添加依赖(dependency)  NSOperationQueue（队列）   Api 备注">
+<meta name="keywords" content="iOS,thread">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS多线程之NSOperations">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/iOS多线程之NSOperations/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
-NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
-
-采用面向对象的方式
-任务、队列可以被cancel/suspend
-NSOperation(任务)之间可以添加依赖(dependency)
-
-NSOperationQueue（队列）
-
-
-Api
-备注">
+<meta property="og:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：  采用面向对象的方式 任务、队列可以被cancel/suspend NSOperation(任务)之间可以添加依赖(dependency)  NSOperationQueue（队列）   Api 备注">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-09-01T08:06:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多线程之NSOperations">
-<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD
-NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：
-
-采用面向对象的方式
-任务、队列可以被cancel/suspend
-NSOperation(任务)之间可以添加依赖(dependency)
-
-NSOperationQueue（队列）
-
-
-Api
-备注">
+<meta name="twitter:description" content="相关文章：iOS多线程之NSThreadiOS多线程之GCD NSOperation(任务)与NSOperationQueue(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：  采用面向对象的方式 任务、队列可以被cancel/suspend NSOperation(任务)之间可以添加依赖(dependency)  NSOperationQueue（队列）   Api 备注">
 
 
 
@@ -326,7 +295,7 @@ Api
       
 
       
-        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="external">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/7269be164cf0" target="_blank" rel="external">iOS多线程之GCD</a></p>
+        <p>相关文章：<br><a href="http://www.jianshu.com/p/1a511bbf97f7" target="_blank" rel="noopener">iOS多线程之NSThread</a><br><a href="http://www.jianshu.com/p/7269be164cf0" target="_blank" rel="noopener">iOS多线程之GCD</a></p>
 <p><code>NSOperation</code>(任务)与<code>NSOperationQueue</code>(队列)是在GCD之上构建的，但是相较于GCD它具有如下特点：</p>
 <ul>
 <li>采用面向对象的方式</li>
@@ -417,9 +386,9 @@ Api
 </tr>
 </tbody>
 </table>
-<h5 id="NSOperation的2个子类"><a href="#NSOperation的2个子类" class="headerlink" title="NSOperation的2个子类"></a>NSOperation的2个子类</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSBlockOperation</span>` : <span class="title">NSOperation</span> </span></div><div class="line"><span class="comment">// 根据block返回NSBlockOperation实例</span></div><div class="line">+ (<span class="keyword">instancetype</span>)blockOperationWithBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line"></div><div class="line"><span class="comment">// 添加新的任务，这些任务会并行执行</span></div><div class="line">- (<span class="keyword">void</span>)addExecutionBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span>&lt;<span class="keyword">void</span> (^)(<span class="keyword">void</span>)&gt; *executionBlocks;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSInvocationOperation</span>` : <span class="title">NSOperation</span> </span></div><div class="line"><span class="comment">// 用selector的方式创建任务</span></div><div class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target selector:(SEL)sel object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>参考：<br><a href="http://www.raywenderlich.com/19788/how-to-use-nsoperations-and-nsoperationqueues" target="_blank" rel="external">How To Use NSOperations and NSOperationQueues</a></p>
+<h5 id="NSOperation的2个子类"><a href="#NSOperation的2个子类" class="headerlink" title="NSOperation的2个子类"></a>NSOperation的2个子类</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSBlockOperation</span>` : <span class="title">NSOperation</span> </span></span><br><span class="line"><span class="comment">// 根据block返回NSBlockOperation实例</span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)blockOperationWithBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加新的任务，这些任务会并行执行</span></span><br><span class="line">- (<span class="keyword">void</span>)addExecutionBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span>&lt;<span class="keyword">void</span> (^)(<span class="keyword">void</span>)&gt; *executionBlocks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> `<span class="title">NSInvocationOperation</span>` : <span class="title">NSOperation</span> </span></span><br><span class="line"><span class="comment">// 用selector的方式创建任务</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target selector:(SEL)sel object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>参考：<br><a href="http://www.raywenderlich.com/19788/how-to-use-nsoperations-and-nsoperationqueues" target="_blank" rel="noopener">How To Use NSOperations and NSOperationQueues</a></p>
 
       
     </div>
@@ -612,7 +581,7 @@ Api
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

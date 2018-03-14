@@ -84,19 +84,18 @@
 
 
 
-<meta name="description" content="How do I reduce the size of a huge MP4 video?
-You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
+<meta name="description" content="How do I reduce the size of a huge MP4 video? You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
+<meta name="keywords" content="杂七杂八,media">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ffmpeg视频压缩">
 <meta property="og:url" content="https://troyz.github.io/2016/09/01/ffmpeg视频压缩/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="How do I reduce the size of a huge MP4 video?
-You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
+<meta property="og:description" content="How do I reduce the size of a huge MP4 video? You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-09-01T06:58:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ffmpeg视频压缩">
-<meta name="twitter:description" content="How do I reduce the size of a huge MP4 video?
-You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
+<meta name="twitter:description" content="How do I reduce the size of a huge MP4 video? You can try using something such as ffmpeg or mencoder to reencode it with a lower bitrate, e.g.:Calculate the bitrate you need by dividing 1 GB by the vi">
 
 
 
@@ -296,12 +295,12 @@ You can try using something such as ffmpeg or mencoder to reencode it with a low
       
 
       
-        <p><a href="http://superuser.com/questions/4244/how-do-i-reduce-the-size-of-a-huge-mp4-video" target="_blank" rel="external">How do I reduce the size of a huge MP4 video?</a></p>
-<p>You can try using something such as <a href="http://ffmpeg.org/" target="_blank" rel="external">ffmpeg</a> or <a href="http://www.mplayerhq.hu/design7/news.html" target="_blank" rel="external">mencoder</a> to reencode it with a lower bitrate, e.g.:<br>Calculate the bitrate you need by dividing 1 GB by the video length in seconds. So, for a video of length 16:40 (1000 seconds), use a bitrate of 1000000 bytes/sec:</p>
+        <p><a href="http://superuser.com/questions/4244/how-do-i-reduce-the-size-of-a-huge-mp4-video" target="_blank" rel="noopener">How do I reduce the size of a huge MP4 video?</a></p>
+<p>You can try using something such as <a href="http://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg</a> or <a href="http://www.mplayerhq.hu/design7/news.html" target="_blank" rel="noopener">mencoder</a> to reencode it with a lower bitrate, e.g.:<br>Calculate the bitrate you need by dividing 1 GB by the video length in seconds. So, for a video of length 16:40 (1000 seconds), use a bitrate of 1000000 bytes/sec:</p>
 <blockquote>
 <p>ffmpeg -i input.mp4 -b 1000000 output.mp4</p>
 </blockquote>
-<p>Additional options that might be worth considering is setting the <a href="https://trac.handbrake.fr/wiki/CRFGuide" target="_blank" rel="external">Constant Rate Factor</a>, which lowers the average bit rate, but retains better quality. Vary the CRF between around 18 and 24 — the lower, the higher the bitrate.</p>
+<p>Additional options that might be worth considering is setting the <a href="https://trac.handbrake.fr/wiki/CRFGuide" target="_blank" rel="noopener">Constant Rate Factor</a>, which lowers the average bit rate, but retains better quality. Vary the CRF between around 18 and 24 — the lower, the higher the bitrate.</p>
 <blockquote>
 <p>ffmpeg -i input.mp4 -vcodec libx264 -crf 20 output.mp4</p>
 </blockquote>
@@ -497,7 +496,7 @@ You can try using something such as ffmpeg or mencoder to reencode it with a low
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

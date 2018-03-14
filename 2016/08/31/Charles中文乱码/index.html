@@ -84,27 +84,20 @@
 
 
 
-<meta name="description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
-如果没有，可能造成某些平台的Client中文解析乱码。
-很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
-以下为解决Charles中文乱">
+<meta name="description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8 如果没有，可能造成某些平台的Client中文解析乱码。 很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。 以下为解决Charles中文乱">
+<meta name="keywords" content="http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Charles中文乱码">
 <meta property="og:url" content="https://troyz.github.io/2016/08/31/Charles中文乱码/index.html">
 <meta property="og:site_name" content="Troy的小站">
-<meta property="og:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
-如果没有，可能造成某些平台的Client中文解析乱码。
-很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
-以下为解决Charles中文乱">
+<meta property="og:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8 如果没有，可能造成某些平台的Client中文解析乱码。 很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。 以下为解决Charles中文乱">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/267318-6f7d52c438b67551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-08-31T09:57:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Charles中文乱码">
-<meta name="twitter:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8
-如果没有，可能造成某些平台的Client中文解析乱码。
-很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。
-以下为解决Charles中文乱">
+<meta name="twitter:description" content="前言正常情况下，Server端提供给Client端的所有接口的Response中应该有字符集的Header设置：1Content-Type: application/json;charset=UTF-8 如果没有，可能造成某些平台的Client中文解析乱码。 很不幸，我们团队的Server端开发人员的意识不够，很多JSON接口都不规范，用Charles抓包中文乱码。 以下为解决Charles中文乱">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -305,13 +298,13 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>正常情况下，<code>Server</code>端提供给<code>Client</code>端的所有接口的<code>Response</code>中应该有字符集的<code>Header</code>设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Content-Type: application/json;charset=UTF-8</div></pre></td></tr></table></figure></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>正常情况下，<code>Server</code>端提供给<code>Client</code>端的所有接口的<code>Response</code>中应该有字符集的<code>Header</code>设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Type: application/json;charset=UTF-8</span><br></pre></td></tr></table></figure></p>
 <p>如果没有，可能造成某些平台的<code>Client</code>中文解析乱码。</p>
-<p>很不幸，我们团队的<code>Server</code>端开发人员的意识不够，很多<code>JSON</code>接口都不规范，用<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>抓包中文乱码。</p>
-<p>以下为解决<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>中文乱码的方案：</p>
+<p>很不幸，我们团队的<code>Server</code>端开发人员的意识不够，很多<code>JSON</code>接口都不规范，用<a href="https://www.charlesproxy.com/" target="_blank" rel="noopener">Charles</a>抓包中文乱码。</p>
+<p>以下为解决<a href="https://www.charlesproxy.com/" target="_blank" rel="noopener">Charles</a>中文乱码的方案：</p>
 <h3 id="方案1：修改Charles的配置文件Info-plist"><a href="#方案1：修改Charles的配置文件Info-plist" class="headerlink" title="方案1：修改Charles的配置文件Info.plist"></a>方案1：修改<code>Charles</code>的配置文件<code>Info.plist</code></h3><p>右键Charles-&gt;在Finder中显示-&gt;右键<code>Charles.app</code>-&gt;显示包内容-&gt;Contents-&gt;双击打开Info.plist</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-4d6343017c1deee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改JVMOptions: -Dfile.encoding=UTF-8"></p>
-<p>网上很多人都是用这种方式，但是我试了下，没有成功，我的<a href="https://www.charlesproxy.com/" target="_blank" rel="external">Charles</a>版本是<code>v3.11.1</code></p>
+<p>网上很多人都是用这种方式，但是我试了下，没有成功，我的<a href="https://www.charlesproxy.com/" target="_blank" rel="noopener">Charles</a>版本是<code>v3.11.1</code></p>
 <h3 id="方案2：在Charles中Rewrite-Header"><a href="#方案2：在Charles中Rewrite-Header" class="headerlink" title="方案2：在Charles中Rewrite Header"></a>方案2：在<code>Charles</code>中<code>Rewrite</code> <code>Header</code></h3><p>打开<code>Charles</code>-&gt;Tool-&gt;Rewrite-&gt;勾选<code>Enable Rewrite</code>-&gt;点击<code>Sets</code>面板<code>Add</code>按钮-&gt;右侧<code>Locations</code>面板点击<code>Add</code>按钮输入url匹配规则(你server端的url规则)-&gt;右侧<code>Rules</code>面板点击<code>Add</code>按钮输入，详情如下图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/267318-6f7d52c438b67551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Charles Rewrite规则配置"></p>
 <p><strong>注意</strong>：这里需要根据你<code>Server</code>端返回数据的具体情况来，因为我的<code>Server</code>端并没有返回<code>Content-Type</code>这个Header，并且所有接口都返回了<code>Server: Apache-Coyote/1.1</code>这个Header，所以我这个<code>Rewrite</code>规则实际上是修改<code>Server: Apache-Coyote/1.1</code>为<code>Content-Type: application/json;charset=UTF-8</code></p>
@@ -505,7 +498,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
