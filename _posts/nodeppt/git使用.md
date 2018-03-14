@@ -20,9 +20,18 @@ usemathjax: yes
 * GitHub, fork, pull request, issue, CI, comments
 
 [slide]
+## 特点
+----
+* 不需要联机 {:&.rollIn}
+* 每台机器都是一个版本库，可提交到统一的服务器
+* 本地包含完整的commit日志
+* 可创建本地分支，在分支上开发
+
+[slide]
 ## [安装](https://git-scm.com/downloads)
-- [Mac OS X](https://git-scm.com/download/mac) {:&.rollIn}
-- [Windows](https://git-scm.com/download/win)
+----
+* [Mac OS X](https://git-scm.com/download/mac) {:&.rollIn}
+* [Windows](https://git-scm.com/download/win)
 
 [slide]
 ## 配置
@@ -174,6 +183,16 @@ $ git pull origin master
 ----
 * 权限/用户/组 {:&.rollIn}
 * 新建项目/文件上传
+
+[slide]
+## 经验
+----
+* 陋习：开发工具格式化整个文件
+* 不要大提交，尽量拆分成小提交
+* 写代码前先`pull`
+* 善用`branch`：master/develop
+* 善用`tag`/`release`
+* 用markdown写README/wiki/blog/...
 
 [slide]
 ## 教程
