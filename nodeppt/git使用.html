@@ -1,0 +1,304 @@
+<!--
+    Powered By nodeppt - This is probably the best web presentation tool so far!
+    version: 1.4.5
+    site: https://github.com/ksky521/nodeppt
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>git - By Troy Zhang</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Git使用</h1>
+<p><small>Troy Zhang</small></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Git简介</h2>
+
+</hgroup><article>
+
+<ul class="rollIn">
+<li>分布(/集中)式版本管理系统</li>
+<li>Linux</li>
+<li>branch</li>
+<li>tag</li>
+<li>GitHub, fork, pull request, issue, CI, comments</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>配置</h2>
+<pre><code class="bash"># 查看配置列表
+$ git config -l
+
+# 配置git全局邮箱
+$ git config --global user.email &quot;xxxx@163.com&quot;
+
+# 配置git全局用户名
+$ git config --global user.name &quot;用户名&quot;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常用命令1-本地管理</h2>
+<pre><code class="bash"># 初始化项目--全新的项目
+$ git init
+
+# 初始化项目--已存在的项目
+$ git clone ssh://xdzhangm@iss110301000305/LBTravel.git
+
+# 添加新文件
+$ git add .
+
+# 提交代码到本地版本库
+$ git commit -am &quot;xxxx&quot;
+
+# 查看日志
+$ git log
+
+# 获取某个时间点的代码
+$ git checkout 3286ea4
+
+# 查看当前branch
+$ git branch
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>.gitignore</h2>
+<pre><code class="bash"># 哪些文件是不需要版本管理的？
+$ cat .gitignore
+
+.svn
+.svn/*
+*svn*
+.DS_Store
+wc.db
+build
+build/*
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常用命令2-branch管理</h2>
+<pre><code class="bash"># 从当前分支创建新的分支
+$ git checkout -b dev
+
+# 提交代码
+$ git commit -am &quot;.....&quot;
+
+# 切换分支
+$ git checkout master
+
+# 合并代码
+$ git merge dev
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>tags</h2>
+<pre><code class="bash"># 创建tag
+$ git tag -a v1.0.0 -m &quot;.......&quot;
+
+# 查看tag列表
+$ git tag -l
+
+# 提交tag到远程服务器
+$ git push origin --tags
+
+# 删除本地tag
+$ git tag -d v1.0.0
+
+# 删除远程tag
+$ git push origin :refs/tags/v1.0.0
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Gitlab</h2>
+
+</hgroup><article>
+
+<ul class="rollIn">
+<li>用户/组/权限</li>
+<li>邮件 / notification</li>
+<li>Code Review / WIKI / 代码片断</li>
+<li>issue / Change log / Release / milestone</li>
+<li>统计：提交/活跃度/issues/代码行数</li>
+<li>CI</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>SSH配置</h2>
+<pre><code class="bash"># 创建公钥、私钥
+$ ssh-keygen -t rsa -C &quot;xxx@isstech.com&quot;
+
+# 多ssh管理（一般不需要）
+$ vim ~/.ssh/config
+Host github
+    HostName github.com
+    User github_user
+    IdentityFile ~/.ssh/id_rsa_github
+$ ssh-add -l
+
+# 上传公钥（在github/gitlab服务器上配置，用户从本地推送代码的时候服务器会验证用户的身份）
+$ cat ~/.ssh/id_rsa.pub
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常用命令3-推送代码到服务器</h2>
+<pre><code class="bash"># 添加远程库
+$ git remote add origin ssh://xdzhangm@iss110301000305/YeSanPo.git
+
+# 查看远程库
+$ git remote -v
+
+# 提交到远程库
+$ git push origin master
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常用命令4-从服务器更新代码</h2>
+<pre><code class="bash"># 从远程服务器获取最新代码
+$ git fetch origin master
+
+# 从远程服务器获取最新代码，并且合并代码
+$ git pull origin master
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>merge / conflict</h2>
+
+</hgroup><article>
+
+<ul class="rollIn">
+<li>自动合并</li>
+<li>手动解决</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>Gitlab网站使用</h2>
+
+</hgroup><article>
+
+<ul class="rollIn">
+<li>权限/用户/组</li>
+<li>新建项目/文件上传</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>教程</h2>
+
+</hgroup><article>
+
+<ul class="rollIn">
+<li><a href="https://git-scm.com/book/zh/v2" target="_blank">Git官方教程</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank">廖雪峰Git教程</a></li>
+</ul>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodeppt v1.4.5</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+    var ASSET_RELATIVE_DIR = ".";
+</script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+if (typeof ASSET_RELATIVE_DIR === 'string') {
+    path = path + '/' + ASSET_RELATIVE_DIR;
+}
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'slide3',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+<script src="./js/zoom.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
