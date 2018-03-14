@@ -20,6 +20,11 @@ usemathjax: yes
 * GitHub, fork, pull request, issue, CI, comments
 
 [slide]
+## [安装](https://git-scm.com/downloads)
+- [Mac OS X](https://git-scm.com/download/mac) {:&.rollIn}
+- [Windows](https://git-scm.com/download/win)
+
+[slide]
 ## 配置
 ``` bash
 # 查看配置列表
