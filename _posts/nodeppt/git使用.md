@@ -115,7 +115,7 @@ $ git tag -a v1.0.0 -m "......."
 # 查看tag列表
 $ git tag -l
 
-# 提交tag到远程服务器
+# 提交tag到origin这台远程服务器
 $ git push origin --tags
 
 # 删除本地tag
@@ -143,6 +143,18 @@ $ git push origin :refs/tags/v1.0.0
 # 创建公钥、私钥
 $ ssh-keygen -t rsa -C "xxx@isstech.com"
 
+# 上传公钥（在github/gitlab服务器上配置，用户从本地推送代码的时候服务器会验证用户的身份）
+$ cat ~/.ssh/id_rsa.pub
+
+# 配置SSH密钥：http://114.115.167.240/gitlab/profile/keys
+# 如果某用户有多台电脑，可配置多个SSH密钥
+```
+
+> <small> 键盘【N】键 </small> {:&.pull-right}
+
+[note]
+> 有 gitlab/github/gitee 多帐号，每个的帐号不一样怎么办？
+``` bash
 # 多ssh管理（一般不需要）
 $ vim ~/.ssh/config
 Host github
@@ -150,32 +162,38 @@ Host github
     User github_user
     IdentityFile ~/.ssh/id_rsa_github
 $ ssh-add -l
-
-# 上传公钥（在github/gitlab服务器上配置，用户从本地推送代码的时候服务器会验证用户的身份）
-$ cat ~/.ssh/id_rsa.pub
 ```
+[/note]
 
 [slide]
 ## 常用命令3-推送代码到服务器
+
+* [先新建项目](http://114.115.167.240/gitlab/projects/new)
+
 ``` bash
 # 添加远程库
-$ git remote add origin ssh://xdzhangm@iss110301000305/YeSanPo.git
+# origin：远程服务器别名，可添加多个
+$ git remote add origin git@114.115.167.240:mobile/demo.git
 
 # 查看远程库
 $ git remote -v
 
 # 提交到远程库
+# master：分支名称   （把当前工作空间的master分支代码推送到origin这台远程服务器）
 $ git push origin master
 ```
 
 [slide]
 ## 常用命令4-从服务器更新代码
 ``` bash
-# 从远程服务器获取最新代码
+# （可不用）从origin这台服务器拉取master分支的最新代码到本地，**但是不合并代码**
 $ git fetch origin master
 
-# 从远程服务器获取最新代码，并且合并代码
+# （一步到位）从origin这台服务器拉取master分支的最新代码到本地，并且合并代码
 $ git pull origin master
+
+# 查看合并代码后是否有冲突
+$ git status -s
 ```
 
 [slide]
@@ -183,6 +201,15 @@ $ git pull origin master
 ----
 * 自动合并 {:&.rollIn}
 * 手动解决
+
+[slide]
+## 常见案例-从服务器更新代码
+![pull error](/images/git_pull_error.png)
+
+[slide]
+## 常见案例-向服务器推送代码
+![pull error](/images/git_push_error.png)
+
 
 [slide]
 ## Gitlab网站使用
@@ -197,6 +224,7 @@ $ git pull origin master
 * 陋习：开发工具格式化整个文件
 * 不要大提交，尽量拆分成小提交
 * 写代码前先`pull`
+* 写代码前先看当前在哪个分支上
 * 善用`branch`：master/develop
 * 善用`tag`/`release`
 * 用markdown写README/wiki/blog/...
