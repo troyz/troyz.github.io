@@ -145,7 +145,7 @@ $ git tag -a v1.0.0 -m &quot;.......&quot;
 # 查看tag列表
 $ git tag -l
 
-# 提交tag到远程服务器
+# 提交tag到origin这台远程服务器
 $ git push origin --tags
 
 # 删除本地tag
@@ -173,44 +173,65 @@ $ git push origin :refs/tags/v1.0.0
 </ul>
 
 </article></section></slide>
-<slide class="slide"><section class="slide-wrapper"><article>
-<h2>SSH配置</h2>
-<pre><code class="bash"># 创建公钥、私钥
-$ ssh-keygen -t rsa -C &quot;xxx@isstech.com&quot;
-
-# 多ssh管理（一般不需要）
+<slide class="slide hasnote"><aside class="note">
+<section>
+<blockquote>
+<p>有 gitlab/github/gitee 多帐号，每个的帐号不一样怎么办？</p>
+<pre><code class="bash"># 多ssh管理（一般不需要）
 $ vim ~/.ssh/config
 Host github
     HostName github.com
     User github_user
     IdentityFile ~/.ssh/id_rsa_github
 $ ssh-add -l
+</code></pre>
+</blockquote>
+
+</section>
+</aside><section class="slide-wrapper"><article>
+<h2>SSH配置</h2>
+<pre><code class="bash"># 创建公钥、私钥
+$ ssh-keygen -t rsa -C &quot;xxx@isstech.com&quot;
 
 # 上传公钥（在github/gitlab服务器上配置，用户从本地推送代码的时候服务器会验证用户的身份）
 $ cat ~/.ssh/id_rsa.pub
+
+# 配置SSH密钥：http://114.115.167.240/gitlab/profile/keys
+# 如果某用户有多台电脑，可配置多个SSH密钥
 </code></pre>
+<blockquote class="pull-right">
+<p><small> 键盘【N】键 </small></p>
+</blockquote>
 
 </article></section></slide>
 <slide class="slide"><section class="slide-wrapper"><article>
 <h2>常用命令3-推送代码到服务器</h2>
+<ul>
+<li><a href="http://114.115.167.240/gitlab/projects/new" target="_blank">先新建项目</a></li>
+</ul>
 <pre><code class="bash"># 添加远程库
-$ git remote add origin ssh://xdzhangm@iss110301000305/YeSanPo.git
+# origin：远程服务器别名，可添加多个
+$ git remote add origin git@114.115.167.240:mobile/demo.git
 
 # 查看远程库
 $ git remote -v
 
 # 提交到远程库
+# master：分支名称   （把当前工作空间的master分支代码推送到origin这台远程服务器）
 $ git push origin master
 </code></pre>
 
 </article></section></slide>
 <slide class="slide"><section class="slide-wrapper"><article>
 <h2>常用命令4-从服务器更新代码</h2>
-<pre><code class="bash"># 从远程服务器获取最新代码
+<pre><code class="bash"># （可不用）从origin这台服务器拉取master分支的最新代码到本地，**但是不合并代码**
 $ git fetch origin master
 
-# 从远程服务器获取最新代码，并且合并代码
+# （一步到位）从origin这台服务器拉取master分支的最新代码到本地，并且合并代码
 $ git pull origin master
+
+# 查看合并代码后是否有冲突
+$ git status -s
 </code></pre>
 
 </article></section></slide>
@@ -223,6 +244,16 @@ $ git pull origin master
 <li>自动合并</li>
 <li>手动解决</li>
 </ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常见案例-从服务器更新代码</h2>
+<img src="./images/git_pull_error.png" alt="pull error">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>常见案例-向服务器推送代码</h2>
+<img src="./images/git_push_error.png" alt="pull error">
 
 </article></section></slide>
 <slide class="slide"><section class="slide-wrapper"><hgroup>
@@ -246,6 +277,7 @@ $ git pull origin master
 <li>陋习：开发工具格式化整个文件</li>
 <li>不要大提交，尽量拆分成小提交</li>
 <li>写代码前先<code>pull</code></li>
+<li>写代码前先看当前在哪个分支上</li>
 <li>善用<code>branch</code>：master/develop</li>
 <li>善用<code>tag</code>/<code>release</code></li>
 <li>用markdown写README/wiki/blog/...</li>
