@@ -129,10 +129,12 @@ $ git push origin :refs/tags/v1.0.0
 ## Gitlab
 ----
 * 用户/组/权限 {:&.rollIn}
-* 邮件 / notification
 * Code Review / WIKI / 代码片断
-* issue / Change log / Release / milestone
-* 统计：提交/活跃度/issues/代码行数
+* [待办](http://issmobile/dashboard/todos) / [待处理issues](http://issmobile/dashboard/issues?assignee_id=2) / [check list](http://issmobile/mobile/react-wechat/issues/9)
+* README / [issues](http://issmobile/mobile/rn-travel-core/issues) / Change log / Release / milestone
+* 邮件 / `@` notification
+* 统计：提交次数/活跃度/[人员贡献](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master)/issues数量/代码行数/[代码语言](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master/charts)
+* [转移项目](http://114.115.167.240/gitlab/mobile/rn-travel-core/edit)
 * CI
 
 [slide]
@@ -187,6 +189,7 @@ $ git pull origin master
 ----
 * 权限/用户/组 {:&.rollIn}
 * 新建项目/文件上传
+* 创建issue / wiki / tag / release
 
 [slide]
 ## 经验
@@ -203,8 +206,14 @@ $ git pull origin master
 ## 复杂？
 | Tool | 适用人员 | 文件类型 |
 | - | - | - |
-| [gitlab](http://114.115.167.240/gitlab) | 开发人员 | code / issues / wiki / ci |
-| [wiki](http://114.115.167.240/doc) | 管理人员 / 美工 / 开发人员 | 项目文档 / 效果图 / API / blog |
+| [gitlab](http://114.115.167.240/gitlab) | 开发人员 / 测试人员 | code / issues / wiki / ci |
+| [wiki](http://114.115.167.240/doc) | 管理人员 / 美工 / 开发人员 | 项目文档 / 设计稿 / 效果图 / API 文档 / blog |
+
+[slide]
+## WIKI
+* 空间 {:&.rollIn}
+* 页面
+* 评论/通知
 
 [slide]
 ## 参考资料
