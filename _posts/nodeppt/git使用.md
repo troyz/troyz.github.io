@@ -28,7 +28,7 @@ usemathjax: yes
 * 可创建本地分支，在分支上开发
 
 [slide]
-## 工作流
+## Git工作流
 ![工作流](https://github.com/troyz/blog-resources/blob/master/images/git_flow.png?raw=true)
 
 [slide]
