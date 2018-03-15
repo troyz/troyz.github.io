@@ -207,7 +207,7 @@ $ git pull origin master
 | [wiki](http://114.115.167.240/doc) | 管理人员 / 美工 / 开发人员 | 项目文档 / 效果图 / API / blog |
 
 [slide]
-## 教程
+## 参考资料
 ----
 * [Git官方教程](https://git-scm.com/book/zh/v2) {:&.rollIn}
 * [廖雪峰Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
