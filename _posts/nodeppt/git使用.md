@@ -28,6 +28,10 @@ usemathjax: yes
 * 可创建本地分支，在分支上开发
 
 [slide]
+## 工作流
+![工作流](https://github.com/troyz/blog-resources/blob/master/images/git_flow.png?raw=true)
+
+[slide]
 ## [安装](https://git-scm.com/downloads)
 ----
 * [Mac OS X](https://git-scm.com/download/mac) {:&.rollIn}
@@ -193,6 +197,14 @@ $ git pull origin master
 * 善用`branch`：master/develop
 * 善用`tag`/`release`
 * 用markdown写README/wiki/blog/...
+* 按`组`/`项目`划分存储
+
+[slide]
+## 复杂？
+| Tool | 适用人员 | 文件类型 |
+| - | - | - |
+| [gitlab](http://114.115.167.240/gitlab) | 开发人员 | code / issues / wiki / ci |
+| [wiki](http://114.115.167.240/doc) | 管理人员 / 美工 / 开发人员 | 项目文档 / 效果图 / API / blog |
 
 [slide]
 ## 教程
