@@ -126,16 +126,11 @@ $ git push origin :refs/tags/v1.0.0
 ```
 
 [slide]
-## Gitlab
+## Gitlab 简介
 ----
-* 用户/组/权限 {:&.rollIn}
-* Code Review / WIKI / 代码片断
-* [待办](http://issmobile/dashboard/todos) / [待处理issues](http://issmobile/dashboard/issues?assignee_id=2) / [check list](http://issmobile/mobile/react-wechat/issues/9)
-* README / [issues](http://issmobile/mobile/rn-travel-core/issues) / Change log / Release / milestone
-* 邮件 / `@` notification
-* 统计：提交次数/活跃度/[人员贡献](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master)/issues数量/代码行数/[代码语言](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master/charts)
-* [转移项目](http://114.115.167.240/gitlab/mobile/rn-travel-core/edit)
-* CI
+* 团队协作 {:&.rollIn}
+* 质量管理
+* Git / Gitlab / GitHub 的区别
 
 [slide]
 ## SSH配置
@@ -210,13 +205,17 @@ $ git status -s
 ## 常见案例-向服务器推送代码
 ![pull error](/images/git_push_error.png)
 
-
 [slide]
-## Gitlab网站使用
+## Gitlab 更多功能
 ----
-* 权限/用户/组 {:&.rollIn}
-* 新建项目/文件上传
-* 创建issue / wiki / tag / release
+* 用户/组/权限 {:&.rollIn}
+* Code Review / WIKI / 代码片断
+* [待办](http://issmobile/dashboard/todos) / [待处理issues](http://issmobile/dashboard/issues?assignee_id=2) / [check list](http://issmobile/mobile/react-wechat/issues/9)
+* README / [issues](http://issmobile/mobile/rn-travel-core/issues) / Change log / Release / milestone
+* 邮件 / `@` notification
+* 统计：提交次数/活跃度/[人员贡献](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master)/issues数量/代码行数/[代码语言](http://114.115.167.240/gitlab/mobile/rn-travel-core/graphs/master/charts)
+* [转移项目](http://114.115.167.240/gitlab/mobile/rn-travel-core/edit)
+* CI
 
 [slide]
 ## 经验
